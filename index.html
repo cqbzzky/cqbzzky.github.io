@@ -16,7 +16,6 @@
     }
     .page-header {
       background-image: url('https://picsum.photos/1920/120?random=2');
-      background-repeat: no-repeat;
       background-size: 100% 100%;
       background-position: center;
       position: fixed;
@@ -25,6 +24,26 @@
       width: 100%;
       height: 120px;
       z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-white-box {
+      background-color: white;
+      width: 300px;
+      height: 80px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+    }
+    .header-text {
+      color: #333;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
     }
     .content {
       width: 800px;
@@ -36,7 +55,14 @@
   </style>
 </head>
 <body>
-  <div class="page-header"></div>
+  <div class="page-header">
+    <div class="header-white-box">
+      <div class="header-text">
+        <h1>Keyv Zhou</h1>
+      </div>
+      -->
+    </div>
+  </div>
   <div class="content">
     <p><a href="https://www.luogu.com.cn/user/1534256" title="">洛谷大号</a> azky2024</p>
     <p><a href="https://www.luogu.com.cn/user/2006920" title="">洛谷小号</a> cqbzzky</p>
