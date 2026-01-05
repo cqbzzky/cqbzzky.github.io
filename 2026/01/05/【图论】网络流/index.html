@@ -301,14 +301,22 @@
           <div class="page-content"><h2 id="网络流是什么">网络流是什么？</h2>
 <p>网络流可以类比成一个水管网络，组成了一个有向图。有一个无限产水的神奇水厂，还有一个无限蓄水的神奇蓄水池。</p>
 <p>每个水管有单位时间的最大通过水量（水管也有粗细），要求一单位时间内神奇蓄水池最多能收到多少从神奇水厂过来的水。</p>
-<p>网络流中有如下定义： - 弧：就是图中的边，也就是水管。 -
-源点：水的起始点，也就是神奇水厂。 - 汇点：水的终点，也就是神奇蓄水池。
-- 容量：一条边的单位时间最大通过水量。 -
-流量：这条边现在实际通过的水量。 - 残量：容量减去流量。 -
-增广路径：一条从源点到汇点的路径，这条路径还没完全被占满，也就是路径上每一条边的残量都大于零。
-- 残量网络：这张图已经被水占据了一部分了，但还能找到增广路径。</p>
-<p>网络流还有两个约束： - 流量 <span class="math inline">≤</span> 容量。
-- 节点的流入量=流出量，即节点不会消耗水或产生水。</p>
+<p>网络流中有如下定义：</p>
+<ul>
+<li><p>弧：就是图中的边，也就是水管。</p></li>
+<li><p>源点：水的起始点，也就是神奇水厂。</p></li>
+<li><p>汇点：水的终点，也就是神奇蓄水池。</p></li>
+<li><p>容量：一条边的单位时间最大通过水量。</p></li>
+<li><p>流量：这条边现在实际通过的水量。</p></li>
+<li><p>残量：容量减去流量。</p></li>
+<li><p>增广路径：一条从源点到汇点的路径，这条路径还没完全被占满，也就是路径上每一条边的残量都大于零。</p></li>
+<li><p>残量网络：这张图已经被水占据了一部分了，但还能找到增广路径。</p></li>
+</ul>
+<p>网络流还有两个约束：</p>
+<ul>
+<li><p>流量 <span class="math inline">≤</span> 容量。</p></li>
+<li><p>节点的流入量=流出量，即节点不会消耗水或产生水。</p></li>
+</ul>
 <p>知道了这些之后，我们就可以开始求网络流了 。 ## 最大流</p>
 <h3 id="基于增广路径的最大流算法">基于增广路径的最大流算法</h3>
 <h4 id="ford-fulkersonff-算法">Ford-Fulkerson(FF) 算法</h4>
@@ -440,10 +448,10 @@ Dinic 及 ISAP
 过于好写且常数过于小，所以后者仍是算法竞赛最常用的最大流算法之一。</p>
 <h2 id="参考文献">参考文献</h2>
 <p><a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/rmy020718/p/9546071.html">网络流–最大流</a>
-<a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/linzhengmin/p/9313216.html">[算法]网络最大流Dinic</a>
-<a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/rmy020718/p/9546071.html">网络流–最大流</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/linzhengmin/p/9313216.html">[算法]网络最大流Dinic</a></p>
+<p><a
 target="_blank" rel="noopener" href="https://www.cnblogs.com/Xing-Ling/p/11487554.html">【学习笔记】网络流算法简单入门</a></p>
 <p><a
 target="_blank" rel="noopener" href="https://www.cnblogs.com/zsboy/archive/2013/01/27/2878810.html">网络流—最大流（Edmond-Karp算法）</a></p>
