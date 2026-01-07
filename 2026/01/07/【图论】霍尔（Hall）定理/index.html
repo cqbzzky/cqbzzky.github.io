@@ -267,7 +267,7 @@
 <button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
 <div id="overlay" class="overlay">
   <div class="content">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86%E5%86%85%E5%AE%B9"><span class="toc-text">定理内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86%E8%AF%81%E6%98%8E"><span class="toc-text">定理证明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-text">必要性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%85%E5%88%86%E6%80%A7%E8%AF%81%E6%98%8E1"><span class="toc-text">充分性证明1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%85%E5%88%86%E6%80%A7%E8%AF%81%E6%98%8E2"><span class="toc-text">充分性证明2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E5%86%B5-1"><span class="toc-text">情况 1</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86%E5%86%85%E5%AE%B9"><span class="toc-text">定理内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-text">必要性</span></a></li></ol></li></ol>
     <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
   </div>
 </div>
@@ -294,76 +294,297 @@
             作者: <span itemprop="author">
               <span itemprop="name">cqbzzky</span>
             </span>
-            字数: <span class="post-count">1.6k</span>
+            字数: <span class="post-count">1.5k</span>
             预计阅读时间: <span class="post-count">6min</span> 
           </div>       
         </header>
-          <div class="page-content"><h2 id="定理内容"><a href="#定理内容" class="headerlink" title="定理内容"></a>定理内容</h2><p>对于一个二分图，设左边的点集是 $U$，右边的点集是 $V$ 。如果这个二分图有一个完美匹配，当且仅当对于任意一个子集 $S \in U$ ，满足 $|S| \leq |N(S)|$ ，其中 $N(S)$ 是 $S$ 的邻域，即 $V$ 中所有与 $S$ 中的元素有连边的元素所组成的集合。</p>
-<h2 id="定理证明"><a href="#定理证明" class="headerlink" title="定理证明"></a>定理证明</h2><h3 id="必要性"><a href="#必要性" class="headerlink" title="必要性"></a>必要性</h3><p>这个非常显然，因为如果邻域比自己还小，那必然有一个人无法匹配。</p>
-<h3 id="充分性证明1"><a href="#充分性证明1" class="headerlink" title="充分性证明1"></a>充分性证明1</h3><p>考虑反证法。</p>
-<p><img src="https://i-blog.csdnimg.cn/img_convert/c904e43a6327d38f62fbf3311c2a1132.png"></p>
-<p>如图，这张图满足 Hall 定理，但是现在没有完美匹配，左右都剩下了一些节点，即 $1$ 和 $4$。</p>
-<p>对于左边剩下的节点 $1$，将其与它的任意一条边对面的点 $2$ 做匹配（显然是有的，否则集合 ${1}$不满足 Hall 定理）。如果对面已经被选过了，比如 $2$ 被 $3$ 选过了，那就让 和它匹配的点 $3$  视为没有匹配，去找另外的匹配（显然是有另外的匹配的，否则集合 ${1,3}$ 不满足 Hall 定理）。</p>
+          <div class="page-content"><h2 id="定理内容">定理内容</h2>
+<p>对于一个二分图，设左边的点集是 <span
+class="math inline"><em>U</em></span>，右边的点集是 <span
+class="math inline"><em>V</em></span>
+。如果这个二分图有一个完美匹配，当且仅当对于任意一个子集 <span
+class="math inline"><em>S</em> ∈ <em>U</em></span> ，满足 <span
+class="math inline">|<em>S</em>| ≤ |<em>N</em>(<em>S</em>)|</span>
+，其中 <span class="math inline"><em>N</em>(<em>S</em>)</span> 是 <span
+class="math inline"><em>S</em></span> 的邻域，即 <span
+class="math inline"><em>V</em></span> 中所有与 <span
+class="math inline"><em>S</em></span> 中的元素有连边的元素所组成的集合。
+## 定理证明</p>
+<h3 id="必要性">必要性</h3>
+<p>这个非常显然，因为如果邻域比自己还小，那必然有一个人无法匹配。 ###
+充分性证明1 考虑反证法。</p>
+<p><img
+src="https://i-blog.csdnimg.cn/img_convert/c904e43a6327d38f62fbf3311c2a1132.png" /></p>
+<p>如图，这张图满足 Hall
+定理，但是现在没有完美匹配，左右都剩下了一些节点，即 <span
+class="math inline">1</span> 和 <span class="math inline">4</span>。</p>
+<p>对于左边剩下的节点 <span
+class="math inline">1</span>，将其与它的任意一条边对面的点 <span
+class="math inline">2</span> 做匹配（显然是有的，否则集合 <span
+class="math inline">{1}</span>不满足 Hall
+定理）。如果对面已经被选过了，比如 <span class="math inline">2</span> 被
+<span class="math inline">3</span> 选过了，那就让 和它匹配的点 <span
+class="math inline">3</span>
+视为没有匹配，去找另外的匹配（显然是有另外的匹配的，否则集合 <span
+class="math inline">{1, 3}</span> 不满足 Hall 定理）。</p>
 <p>以此类推，最后一定可以找到完美匹配，与假设矛盾！</p>
-<p>综上所述，Hall 定理是二分图有完美匹配的充要条件。</p>
-<h3 id="充分性证明2"><a href="#充分性证明2" class="headerlink" title="充分性证明2"></a>充分性证明2</h3><p>考虑归纳证明。</p>
-<p>显然，当 $|U| &#x3D; 1$ 时，充分性存在。</p>
-<p>当 $|U| &#x3D; k$ 且所有 $|U| &lt; k$ 的充分性都存在时，尝试证明 $U$ 的充分性存在。</p>
-<h4 id="情况-1"><a href="#情况-1" class="headerlink" title="情况 1"></a>情况 1</h4><p><strong>假设</strong>：对每个非空真子集 $S \subset U$（即 $\varnothing \neq S \subsetneq U$ ），都有<br>$$<br>|N(S)| &gt; |S|.<br>$$<br><strong>步骤</strong>：</p>
-<ol>
-<li>任取 $u \in U$。由 Hall 条件（对单点集 ${u}$ 成立），有 $|N({u})| \ge 1$，所以存在 $v \in V$ 与 $u$ 相邻。</li>
-<li>从原图 $G$ 中删去 $u, v$ 及所有关联的边，得到新图 $G’ &#x3D; (U’, V’, E’)$，其中<br>$U’ &#x3D; U \setminus {u}$，<br>$V’ &#x3D; V \setminus {v}$。</li>
-<li>检查 $G’$ 是否满足 Hall 条件：<br>对任意 $S’ \subseteq U’$（注意 $|S’| \le k$）：<ul>
-<li>在原图 $G$ 中，由于 $S’$ 是真子集（因为 $S’$ 不包含 $u$ 且 $S’ \subseteq U’ \subsetneq U$），所以由情况 1 的条件 $|N_G(S’)| &gt; |S’|$。</li>
-<li>在 $G’$ 中，邻域 $N_{G’}(S’) &#x3D; N_G(S’) \setminus {v}$。</li>
-<li>分两种子情形：<ul>
-<li>若 $v \in N_G(S’)$，则<br>$|N_{G’}(S’)| &#x3D; |N_G(S’)| - 1 \ge |S’|$（因为 $|N_G(S’)| \ge |S’|+1$）。</li>
-<li>若 $v \notin N_G(S’)$，则<br>$|N_{G’}(S’)| &#x3D; |N_G(S’)| \ge |S’|+1 &gt; |S’|$。</li>
-</ul>
-</li>
-<li>综上，总有 $|N_{G’}(S’)| \ge |S’|$。</li>
-</ul>
-</li>
-<li>由于 $|U’| &#x3D; k$，由归纳假设，$G’$ 存在匹配 $M’$ 覆盖 $U’$。</li>
-<li>将边 $(u, v)$ 加入 $M’$，得到 $G$ 的一个匹配覆盖全部 $U$。</li>
+<p>综上所述，Hall 定理是二分图有完美匹配的充要条件。 ### 充分性证明2</p>
+<p>考虑归纳证明。</p>
+<p>显然，当 <span class="math inline">|<em>U</em>| = 1</span>
+时，充分性存在。</p>
+<p>当 <span class="math inline">|<em>U</em>| = <em>k</em></span> 且所有
+<span class="math inline">|<em>U</em>| &lt; <em>k</em></span>
+的充分性都存在时，尝试证明 <span class="math inline"><em>U</em></span>
+的充分性存在。 #### 情况 1</p>
+<p><strong>假设</strong>：对每个非空真子集 <span
+class="math inline"><em>S</em> ⊂ <em>U</em></span>（即 <span
+class="math inline">⌀ ≠ <em>S</em> ⊊ <em>U</em></span> ），都有 <span
+class="math display">|<em>N</em>(<em>S</em>)| &gt; |<em>S</em>|.</span>
+<strong>步骤</strong>：</p>
+<ol type="1">
+<li>任取 <span class="math inline"><em>u</em> ∈ <em>U</em></span>。由
+Hall 条件（对单点集 <span class="math inline">{<em>u</em>}</span>
+成立），有 <span
+class="math inline">|<em>N</em>({<em>u</em>})| ≥ 1</span>，所以存在
+<span class="math inline"><em>v</em> ∈ <em>V</em></span> 与 <span
+class="math inline"><em>u</em></span> 相邻。</li>
+<li>从原图 <span class="math inline"><em>G</em></span> 中删去 <span
+class="math inline"><em>u</em>, <em>v</em></span>
+及所有关联的边，得到新图 <span
+class="math inline"><em>G</em><sup>′</sup> = (<em>U</em><sup>′</sup>, <em>V</em><sup>′</sup>, <em>E</em><sup>′</sup>)</span>，其中<br />
+<span
+class="math inline"><em>U</em><sup>′</sup> = <em>U</em> \ {<em>u</em>}</span>，<br />
+<span
+class="math inline"><em>V</em><sup>′</sup> = <em>V</em> \ {<em>v</em>}</span>。</li>
+<li>检查 <span class="math inline"><em>G</em><sup>′</sup></span>
+是否满足 Hall 条件：<br />
+对任意 <span
+class="math inline"><em>S</em><sup>′</sup> ⊆ <em>U</em><sup>′</sup></span>（注意
+<span
+class="math inline">|<em>S</em><sup>′</sup>| ≤ <em>k</em></span>）：
+<ul>
+<li>在原图 <span class="math inline"><em>G</em></span> 中，由于 <span
+class="math inline"><em>S</em><sup>′</sup></span> 是真子集（因为 <span
+class="math inline"><em>S</em><sup>′</sup></span> 不包含 <span
+class="math inline"><em>u</em></span> 且 <span
+class="math inline"><em>S</em><sup>′</sup> ⊆ <em>U</em><sup>′</sup> ⊊ <em>U</em></span>），所以由情况
+1 的条件 <span
+class="math inline">|<em>N</em><sub><em>G</em></sub>(<em>S</em><sup>′</sup>)| &gt; |<em>S</em><sup>′</sup>|</span>。</li>
+<li>在 <span class="math inline"><em>G</em><sup>′</sup></span> 中，邻域
+<span
+class="math inline"><em>N</em><sub><em>G</em><sup>′</sup></sub>(<em>S</em><sup>′</sup>) = <em>N</em><sub><em>G</em></sub>(<em>S</em><sup>′</sup>) \ {<em>v</em>}</span>。</li>
+<li>分两种子情形：
+<ul>
+<li>若 <span
+class="math inline"><em>v</em> ∈ <em>N</em><sub><em>G</em></sub>(<em>S</em><sup>′</sup>)</span>，则<br />
+<span
+class="math inline">|<em>N</em><sub><em>G</em><sup>′</sup></sub>(<em>S</em><sup>′</sup>)| = |<em>N</em><sub><em>G</em></sub>(<em>S</em><sup>′</sup>)|−1 ≥ |<em>S</em><sup>′</sup>|</span>（因为
+<span
+class="math inline">|<em>N</em><sub><em>G</em></sub>(<em>S</em><sup>′</sup>)| ≥ |<em>S</em><sup>′</sup>|+1</span>）。</li>
+<li>若 <span
+class="math inline"><em>v</em> ∉ <em>N</em><sub><em>G</em></sub>(<em>S</em><sup>′</sup>)</span>，则<br />
+<span
+class="math inline">|<em>N</em><sub><em>G</em><sup>′</sup></sub>(<em>S</em><sup>′</sup>)| = |<em>N</em><sub><em>G</em></sub>(<em>S</em><sup>′</sup>)| ≥ |<em>S</em><sup>′</sup>|+1 &gt; |<em>S</em><sup>′</sup>|</span>。</li>
+</ul></li>
+<li>综上，总有 <span
+class="math inline">|<em>N</em><sub><em>G</em><sup>′</sup></sub>(<em>S</em><sup>′</sup>)| ≥ |<em>S</em><sup>′</sup>|</span>。</li>
+</ul></li>
+<li>由于 <span
+class="math inline">|<em>U</em><sup>′</sup>| = <em>k</em></span>，由归纳假设，<span
+class="math inline"><em>G</em><sup>′</sup></span> 存在匹配 <span
+class="math inline"><em>M</em><sup>′</sup></span> 覆盖 <span
+class="math inline"><em>U</em><sup>′</sup></span>。</li>
+<li>将边 <span class="math inline">(<em>u</em>, <em>v</em>)</span> 加入
+<span class="math inline"><em>M</em><sup>′</sup></span>，得到 <span
+class="math inline"><em>G</em></span> 的一个匹配覆盖全部 <span
+class="math inline"><em>U</em></span>。</li>
 </ol>
 <p><strong>情况 1 证毕。</strong></p>
 <p><strong>情况 2</strong></p>
-<p><strong>假设</strong>：存在某个非空真子集 $S_0 \subset U$（即 $\varnothing \neq S_0 \subsetneq U$）使得<br>$$<br>|N(S_0)| &#x3D; |S_0|.<br>$$</p>
+<p><strong>假设</strong>：存在某个非空真子集 <span
+class="math inline"><em>S</em><sub>0</sub> ⊂ <em>U</em></span>（即 <span
+class="math inline">⌀ ≠ <em>S</em><sub>0</sub> ⊊ <em>U</em></span>）使得<br />
+<span
+class="math display">|<em>N</em>(<em>S</em><sub>0</sub>)| = |<em>S</em><sub>0</sub>|.</span></p>
 <p><strong>步骤 1：将图分成两部分</strong></p>
-<p>由 Hall 条件，$|N(S_0)| \ge |S_0|$，已知相等，所以 我们可以先考虑子图 $G_1 &#x3D; (S_0, N(S_0), E_1)$，其中 $E_1$ 是 $E$ 中两端分别在 $S_0$ 与 $N(S_0)$ 中的边。</p>
-<p>对任意 $T \subseteq S_0$，在 $G$ 中 $N_G(T) \subseteq N_G(S_0)$（不一定等于，但至少邻域在 $V$ 中）。<br>在 $G_1$ 中，$T$ 的邻域仍是 $N_G(T)$（因为如果 $v \in N_G(T)$，则 $v$ 与某个 $u \in T \subseteq S_0$ 相邻，因此 $v \in N_G(S_0)$，所以 $N_G(T) \subseteq N(S_0)$。）</p>
-<p>因此 $G_1$ 中 $T$ 的邻域和 $G$ 中相同，即 $N_{G_1}(T) &#x3D; N_G(T)$。</p>
-<p>于是对任意 $T \subseteq S_0$：<br>$$<br>|N_{G_1}(T)| &#x3D; |N_G(T)| \ge |T|<br>$$<br>由 $G$ 的 Hall 条件得出。所以 $G_1$ 也满足 Hall 条件。</p>
-<p>并且 $|N_{G_1}(S_0)| &#x3D; |S_0|$ 仍然成立。</p>
-<p><strong>步骤 2：对 $G_1$ 使用归纳假设</strong></p>
-<p>因为 $1 \le |S_0| &lt; |U|$，由归纳假设（假设定理对点数较小的 $U$ 成立），图 $G_1$ 存在饱和 $ S_0 $ 的匹配 $M_1$，匹配大小 $|M_1| &#x3D; |S_0|$。</p>
-<p>$M_1$ 用了 $N(S_0)$ 的所有点了吗？注意 $|M_1| &#x3D; |S_0| &#x3D; |N(S_0)|$，所以 $M_1$ 饱和了 $S_0$ 和 $N(S_0)$（即匹配边从 $S_0$ 到 $N(S_0)$ 双射）。</p>
-<p>因此，$M_1$ 占用了 $N(S_0)$ 的所有点与 $S_0$ 的所有点。</p>
-<p><strong>步骤 3：考虑剩余子图 $G_2$</strong></p>
-<p>令 $U’ &#x3D; U \setminus S_0$，<br>$V’ &#x3D; V \setminus N(S_0)$，<br>$E_2$ 为连接 $U’$ 与 $V’$ 的边（以及 $U’$ 与 $N(S_0)$ 的边我们不考虑吗？这需要小心：原图可能还有 $U’$ 到 $N(S_0)$ 的边，但这些边不能用在 $G_2$ 的匹配中，因为 $N(S_0)$ 在 $G_1$ 中已经全被 $M_1$ 占用了。我们定义 $G_2 &#x3D; (U’, V’, E’)$，其中 $E’ &#x3D; { (u, v) \in E \mid u \in U’, v \in V’ }$。</p>
-<p>我们要证：$G_2$ 满足 Hall 条件。</p>
-<p>取任意 $S \subseteq U’$，考虑它在原图中的邻域 $N_G(S)$。</p>
-<p><strong>引理：$G_2$ 满足 Hall 条件</strong></p>
-<p><strong>证明</strong>：取任意 $S \subseteq U’$，考虑原图 $G$ 中的 $T &#x3D; S_0 \cup S$。</p>
-<p>我们想证：对任意 $S \subseteq U’$，在子图 $G_2$ 中 $|N_{G_2}(S)| \ge |S|$。</p>
-<p>$N_{G_2}(S)$ 定义为在 $G_2$ 中 $S$ 的邻域，即 $V’$ 中与 $S$ 有边相连的点。</p>
-<p>在 $G$ 中，$S$ 的邻域 $N_G(S)$ 可能有一部分落在 $N_G(S_0)$ 中，另一部分落在 $V’$ 中。</p>
-<p>设：<br>$$<br>A &#x3D; N_G(S) \cap N_G(S_0), \quad B &#x3D; N_G(S) \cap V’<br>$$<br>显然：<br>$$<br>N_G(S) &#x3D; A \cup B, \quad |N_G(S)| &#x3D; |A| + |B|<br>$$<br>且 $B &#x3D; N_{G_2}(S)$。</p>
-<p>考虑 $T &#x3D; S_0 \cup S$（这是 $U$ 的子集），<br>$N_G(T) &#x3D; N_G(S_0) \cup N_G(S)$（一般并集，可能有交）。</p>
-<p>于是：<br>$$<br>|N_G(T)| &#x3D; |N_G(S_0)| + |N_G(S)| - |N_G(S_0) \cap N_G(S)|<br>$$<br>而 $N_G(S_0) \cap N_G(S) &#x3D; A$，所以：<br>$$<br>|N_G(T)| &#x3D; |N_G(S_0)| + (|A| + |B|) - |A| &#x3D; |N_G(S_0)| + |B|.<br>$$<br>由 $|N_G(S_0)| &#x3D; |S_0|$，得：<br>$$<br>|N_G(T)| &#x3D; |S_0| + |B|.<br>$$<br>结合 $|N_G(T)| \ge |S_0| + |S|$，有 $|B| \ge |S|$，即：<br>$$<br>|N_{G_2}(S)| \ge |S|.<br>$$</p>
-<p>这正是 $G_2$ 的 Hall 条件。</p>
-<p><strong>步骤 4：对 $G_2$ 使用归纳假设</strong></p>
-<p>由于 $|U’| &lt; |U|$，根据归纳假设，$G_2$ 存在饱和 $U’$ 的匹配 $M_2$，匹配大小为 $|U’|$。</p>
+<p>由 Hall 条件，<span
+class="math inline">|<em>N</em>(<em>S</em><sub>0</sub>)| ≥ |<em>S</em><sub>0</sub>|</span>，已知相等，所以
+我们可以先考虑子图 <span
+class="math inline"><em>G</em><sub>1</sub> = (<em>S</em><sub>0</sub>, <em>N</em>(<em>S</em><sub>0</sub>), <em>E</em><sub>1</sub>)</span>，其中
+<span class="math inline"><em>E</em><sub>1</sub></span> 是 <span
+class="math inline"><em>E</em></span> 中两端分别在 <span
+class="math inline"><em>S</em><sub>0</sub></span> 与 <span
+class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span>
+中的边。</p>
+<p>对任意 <span
+class="math inline"><em>T</em> ⊆ <em>S</em><sub>0</sub></span>，在 <span
+class="math inline"><em>G</em></span> 中 <span
+class="math inline"><em>N</em><sub><em>G</em></sub>(<em>T</em>) ⊆ <em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>)</span>（不一定等于，但至少邻域在
+<span class="math inline"><em>V</em></span> 中）。<br />
+在 <span class="math inline"><em>G</em><sub>1</sub></span> 中，<span
+class="math inline"><em>T</em></span> 的邻域仍是 <span
+class="math inline"><em>N</em><sub><em>G</em></sub>(<em>T</em>)</span>（因为如果
+<span
+class="math inline"><em>v</em> ∈ <em>N</em><sub><em>G</em></sub>(<em>T</em>)</span>，则
+<span class="math inline"><em>v</em></span> 与某个 <span
+class="math inline"><em>u</em> ∈ <em>T</em> ⊆ <em>S</em><sub>0</sub></span>
+相邻，因此 <span
+class="math inline"><em>v</em> ∈ <em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>)</span>，所以
+<span
+class="math inline"><em>N</em><sub><em>G</em></sub>(<em>T</em>) ⊆ <em>N</em>(<em>S</em><sub>0</sub>)</span>。）</p>
+<p>因此 <span class="math inline"><em>G</em><sub>1</sub></span> 中 <span
+class="math inline"><em>T</em></span> 的邻域和 <span
+class="math inline"><em>G</em></span> 中相同，即 <span
+class="math inline"><em>N</em><sub><em>G</em><sub>1</sub></sub>(<em>T</em>) = <em>N</em><sub><em>G</em></sub>(<em>T</em>)</span>。</p>
+<p>于是对任意 <span
+class="math inline"><em>T</em> ⊆ <em>S</em><sub>0</sub></span>： <span
+class="math display">|<em>N</em><sub><em>G</em><sub>1</sub></sub>(<em>T</em>)| = |<em>N</em><sub><em>G</em></sub>(<em>T</em>)| ≥ |<em>T</em>|</span>
+由 <span class="math inline"><em>G</em></span> 的 Hall 条件得出。所以
+<span class="math inline"><em>G</em><sub>1</sub></span> 也满足 Hall
+条件。</p>
+<p>并且 <span
+class="math inline">|<em>N</em><sub><em>G</em><sub>1</sub></sub>(<em>S</em><sub>0</sub>)| = |<em>S</em><sub>0</sub>|</span>
+仍然成立。</p>
+<p><strong>步骤 2：对 <span
+class="math inline"><em>G</em><sub>1</sub></span>
+使用归纳假设</strong></p>
+<p>因为 <span
+class="math inline">1 ≤ |<em>S</em><sub>0</sub>| &lt; |<em>U</em>|</span>，由归纳假设（假设定理对点数较小的
+<span class="math inline"><em>U</em></span> 成立），图 <span
+class="math inline"><em>G</em><sub>1</sub></span> 存在饱和 $ S_0 $
+的匹配 <span class="math inline"><em>M</em><sub>1</sub></span>，匹配大小
+<span
+class="math inline">|<em>M</em><sub>1</sub>| = |<em>S</em><sub>0</sub>|</span>。</p>
+<p><span class="math inline"><em>M</em><sub>1</sub></span> 用了 <span
+class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span>
+的所有点了吗？注意 <span
+class="math inline">|<em>M</em><sub>1</sub>| = |<em>S</em><sub>0</sub>| = |<em>N</em>(<em>S</em><sub>0</sub>)|</span>，所以
+<span class="math inline"><em>M</em><sub>1</sub></span> 饱和了 <span
+class="math inline"><em>S</em><sub>0</sub></span> 和 <span
+class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span>（即匹配边从
+<span class="math inline"><em>S</em><sub>0</sub></span> 到 <span
+class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span>
+双射）。</p>
+<p>因此，<span class="math inline"><em>M</em><sub>1</sub></span> 占用了
+<span class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span>
+的所有点与 <span class="math inline"><em>S</em><sub>0</sub></span>
+的所有点。</p>
+<p><strong>步骤 3：考虑剩余子图 <span
+class="math inline"><em>G</em><sub>2</sub></span></strong></p>
+<p>令 <span
+class="math inline"><em>U</em><sup>′</sup> = <em>U</em> \ <em>S</em><sub>0</sub></span>，<br />
+<span
+class="math inline"><em>V</em><sup>′</sup> = <em>V</em> \ <em>N</em>(<em>S</em><sub>0</sub>)</span>，<br />
+<span class="math inline"><em>E</em><sub>2</sub></span> 为连接 <span
+class="math inline"><em>U</em><sup>′</sup></span> 与 <span
+class="math inline"><em>V</em><sup>′</sup></span> 的边（以及 <span
+class="math inline"><em>U</em><sup>′</sup></span> 与 <span
+class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span>
+的边我们不考虑吗？这需要小心：原图可能还有 <span
+class="math inline"><em>U</em><sup>′</sup></span> 到 <span
+class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span>
+的边，但这些边不能用在 <span
+class="math inline"><em>G</em><sub>2</sub></span> 的匹配中，因为 <span
+class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span> 在 <span
+class="math inline"><em>G</em><sub>1</sub></span> 中已经全被 <span
+class="math inline"><em>M</em><sub>1</sub></span> 占用了。我们定义 <span
+class="math inline"><em>G</em><sub>2</sub> = (<em>U</em><sup>′</sup>, <em>V</em><sup>′</sup>, <em>E</em><sup>′</sup>)</span>，其中
+<span
+class="math inline"><em>E</em><sup>′</sup> = {(<em>u</em>, <em>v</em>) ∈ <em>E</em> ∣ <em>u</em> ∈ <em>U</em><sup>′</sup>, <em>v</em> ∈ <em>V</em><sup>′</sup>}</span>。</p>
+<p>我们要证：<span class="math inline"><em>G</em><sub>2</sub></span>
+满足 Hall 条件。</p>
+<p>取任意 <span
+class="math inline"><em>S</em> ⊆ <em>U</em><sup>′</sup></span>，考虑它在原图中的邻域
+<span
+class="math inline"><em>N</em><sub><em>G</em></sub>(<em>S</em>)</span>。</p>
+<p><strong>引理：<span class="math inline"><em>G</em><sub>2</sub></span>
+满足 Hall 条件</strong></p>
+<p><strong>证明</strong>：取任意 <span
+class="math inline"><em>S</em> ⊆ <em>U</em><sup>′</sup></span>，考虑原图
+<span class="math inline"><em>G</em></span> 中的 <span
+class="math inline"><em>T</em> = <em>S</em><sub>0</sub> ∪ <em>S</em></span>。</p>
+<p>我们想证：对任意 <span
+class="math inline"><em>S</em> ⊆ <em>U</em><sup>′</sup></span>，在子图
+<span class="math inline"><em>G</em><sub>2</sub></span> 中 <span
+class="math inline">|<em>N</em><sub><em>G</em><sub>2</sub></sub>(<em>S</em>)| ≥ |<em>S</em>|</span>。</p>
+<p><span
+class="math inline"><em>N</em><sub><em>G</em><sub>2</sub></sub>(<em>S</em>)</span>
+定义为在 <span class="math inline"><em>G</em><sub>2</sub></span> 中
+<span class="math inline"><em>S</em></span> 的邻域，即 <span
+class="math inline"><em>V</em><sup>′</sup></span> 中与 <span
+class="math inline"><em>S</em></span> 有边相连的点。</p>
+<p>在 <span class="math inline"><em>G</em></span> 中，<span
+class="math inline"><em>S</em></span> 的邻域 <span
+class="math inline"><em>N</em><sub><em>G</em></sub>(<em>S</em>)</span>
+可能有一部分落在 <span
+class="math inline"><em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>)</span>
+中，另一部分落在 <span class="math inline"><em>V</em><sup>′</sup></span>
+中。</p>
+<p>设： <span
+class="math display"><em>A</em> = <em>N</em><sub><em>G</em></sub>(<em>S</em>) ∩ <em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>),  <em>B</em> = <em>N</em><sub><em>G</em></sub>(<em>S</em>) ∩ <em>V</em><sup>′</sup></span>
+显然： <span
+class="math display"><em>N</em><sub><em>G</em></sub>(<em>S</em>) = <em>A</em> ∪ <em>B</em>,  |<em>N</em><sub><em>G</em></sub>(<em>S</em>)| = |<em>A</em>|+|<em>B</em>|</span>
+且 <span
+class="math inline"><em>B</em> = <em>N</em><sub><em>G</em><sub>2</sub></sub>(<em>S</em>)</span>。</p>
+<p>考虑 <span
+class="math inline"><em>T</em> = <em>S</em><sub>0</sub> ∪ <em>S</em></span>（这是
+<span class="math inline"><em>U</em></span> 的子集），<br />
+<span
+class="math inline"><em>N</em><sub><em>G</em></sub>(<em>T</em>) = <em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>) ∪ <em>N</em><sub><em>G</em></sub>(<em>S</em>)</span>（一般并集，可能有交）。</p>
+<p>于是： <span
+class="math display">|<em>N</em><sub><em>G</em></sub>(<em>T</em>)| = |<em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>)|+|<em>N</em><sub><em>G</em></sub>(<em>S</em>)|−|<em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>) ∩ <em>N</em><sub><em>G</em></sub>(<em>S</em>)|</span>
+而 <span
+class="math inline"><em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>) ∩ <em>N</em><sub><em>G</em></sub>(<em>S</em>) = <em>A</em></span>，所以：
+<span
+class="math display">|<em>N</em><sub><em>G</em></sub>(<em>T</em>)| = |<em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>)|+(|<em>A</em>|+|<em>B</em>|) − |<em>A</em>| = |<em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>)|+|<em>B</em>|.</span>
+由 <span
+class="math inline">|<em>N</em><sub><em>G</em></sub>(<em>S</em><sub>0</sub>)| = |<em>S</em><sub>0</sub>|</span>，得：
+<span
+class="math display">|<em>N</em><sub><em>G</em></sub>(<em>T</em>)| = |<em>S</em><sub>0</sub>|+|<em>B</em>|.</span>
+结合 <span
+class="math inline">|<em>N</em><sub><em>G</em></sub>(<em>T</em>)| ≥ |<em>S</em><sub>0</sub>|+|<em>S</em>|</span>，有
+<span class="math inline">|<em>B</em>| ≥ |<em>S</em>|</span>，即： <span
+class="math display">|<em>N</em><sub><em>G</em><sub>2</sub></sub>(<em>S</em>)| ≥ |<em>S</em>|.</span></p>
+<p>这正是 <span class="math inline"><em>G</em><sub>2</sub></span> 的
+Hall 条件。</p>
+<p><strong>步骤 4：对 <span
+class="math inline"><em>G</em><sub>2</sub></span>
+使用归纳假设</strong></p>
+<p>由于 <span
+class="math inline">|<em>U</em><sup>′</sup>| &lt; |<em>U</em>|</span>，根据归纳假设，<span
+class="math inline"><em>G</em><sub>2</sub></span> 存在饱和 <span
+class="math inline"><em>U</em><sup>′</sup></span> 的匹配 <span
+class="math inline"><em>M</em><sub>2</sub></span>，匹配大小为 <span
+class="math inline">|<em>U</em><sup>′</sup>|</span>。</p>
 <p><strong>步骤 5：合并匹配</strong></p>
-<p>匹配 $M_1$（从 $S_0$ 到 $N(S_0)$）与匹配 $M_2$（从 $U’$ 到 $V’$）没有公共顶点，因为：</p>
+<p>匹配 <span class="math inline"><em>M</em><sub>1</sub></span>（从
+<span class="math inline"><em>S</em><sub>0</sub></span> 到 <span
+class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span>）与匹配
+<span class="math inline"><em>M</em><sub>2</sub></span>（从 <span
+class="math inline"><em>U</em><sup>′</sup></span> 到 <span
+class="math inline"><em>V</em><sup>′</sup></span>）没有公共顶点，因为：</p>
 <ul>
-<li>$M_1$ 占用 $N(S_0)$ 全部，$M_2$ 只占用 $V’ &#x3D; V \setminus N(S_0)$；</li>
-<li>$M_1$ 占用 $S_0$，$M_2$ 占用 $U’$。</li>
+<li><span class="math inline"><em>M</em><sub>1</sub></span> 占用 <span
+class="math inline"><em>N</em>(<em>S</em><sub>0</sub>)</span>
+全部，<span class="math inline"><em>M</em><sub>2</sub></span> 只占用
+<span
+class="math inline"><em>V</em><sup>′</sup> = <em>V</em> \ <em>N</em>(<em>S</em><sub>0</sub>)</span>；</li>
+<li><span class="math inline"><em>M</em><sub>1</sub></span> 占用 <span
+class="math inline"><em>S</em><sub>0</sub></span>，<span
+class="math inline"><em>M</em><sub>2</sub></span> 占用 <span
+class="math inline"><em>U</em><sup>′</sup></span>。</li>
 </ul>
-<p>因此 $M &#x3D; M_1 \cup M_2$ 是 $G$ 的一个匹配，且覆盖 $U &#x3D; S_0 \cup U’$。</p>
-<p>匹配大小 $ |M| &#x3D; |S_0| + |U’| &#x3D; |U| $，所以它是饱和 $U$ 的匹配。</p>
-<p>情况 2 在 Hall 条件成立且存在 $S_0$ 使 $|N(S_0)| &#x3D; |S_0|$ 时，可通过分解为两个更小的子图分别构造匹配并合并，从而得到整体的饱和 $U$ 的匹配，归纳完成。</p>
+<p>因此 <span
+class="math inline"><em>M</em> = <em>M</em><sub>1</sub> ∪ <em>M</em><sub>2</sub></span>
+是 <span class="math inline"><em>G</em></span> 的一个匹配，且覆盖 <span
+class="math inline"><em>U</em> = <em>S</em><sub>0</sub> ∪ <em>U</em><sup>′</sup></span>。</p>
+<p>匹配大小 $ |M| = |S_0| + |U’| = |U| $，所以它是饱和 <span
+class="math inline"><em>U</em></span> 的匹配。</p>
+<p>情况 2 在 Hall 条件成立且存在 <span
+class="math inline"><em>S</em><sub>0</sub></span> 使 <span
+class="math inline">|<em>N</em>(<em>S</em><sub>0</sub>)| = |<em>S</em><sub>0</sub>|</span>
+时，可通过分解为两个更小的子图分别构造匹配并合并，从而得到整体的饱和
+<span class="math inline"><em>U</em></span> 的匹配，归纳完成。</p>
 <p><strong>情况 2 证毕。</strong></p>
 <p>综上所述，Hall 定理是二分图有完美匹配的充要条件。</p>
 </div>          

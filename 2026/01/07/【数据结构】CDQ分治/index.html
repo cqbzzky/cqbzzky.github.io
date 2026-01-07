@@ -298,68 +298,125 @@
             预计阅读时间: <span class="post-count">8min</span> 
           </div>       
         </header>
-          <div class="page-content"><p>CDQ分治是用来解决高维偏序问题的最常用的解法之一。</p>
+          <div class="page-content">CDQ分治是用来解决高维偏序问题的最常用的解法之一。
 <details>
-<summary>高维偏序问题</summary>
-
-<p>偏序问题通常表示为一个集合 $P$ 和一个二元运算 $\prec$ ， $\prec$ 要满足一些性质：</p>
+<summary>
+高维偏序问题
+</summary>
+<p>偏序问题通常表示为一个集合 <span
+class="math inline"><em>P</em></span> 和一个二元运算 <span
+class="math inline">≺</span> ， <span class="math inline">≺</span>
+要满足一些性质：</p>
 <ul>
-<li>自反性，即 $a \prec a$ ；</li>
-<li>反对称性，即如果 $a \prec b \land b\prec a$ ，则 $a &#x3D; b$ ；</li>
-<li>传递性，即如果 $a \prec b \land b\prec a$ ，则 $a \prec c$ 。</li>
+<li>自反性，即 <span class="math inline"><em>a</em> ≺ <em>a</em></span>
+；</li>
+<li>反对称性，即如果 <span
+class="math inline"><em>a</em> ≺ <em>b</em> ∧ <em>b</em> ≺ <em>a</em></span>
+，则 <span class="math inline"><em>a</em> = <em>b</em></span> ；</li>
+<li>传递性，即如果 <span
+class="math inline"><em>a</em> ≺ <em>b</em> ∧ <em>b</em> ≺ <em>a</em></span>
+，则 <span class="math inline"><em>a</em> ≺ <em>c</em></span> 。</li>
 </ul>
 <p>利用这个二元运算在集合内做的各种统计就属于偏序问题。</p>
-<p>而高维偏序问题就是多元组之间的偏序问题。这些多元组内部有优先级，比如先比较$a_i$，相同则比较 $b_i$ ，再相同则比较 $c_i$ ……</p>
+而高维偏序问题就是多元组之间的偏序问题。这些多元组内部有优先级，比如先比较<span
+class="math inline"><em>a</em><sub><em>i</em></sub></span>，相同则比较
+<span class="math inline"><em>b</em><sub><em>i</em></sub></span>
+，再相同则比较 <span
+class="math inline"><em>c</em><sub><em>i</em></sub></span> ……
 </details>
-
-<h2 id="一维偏序"><a href="#一维偏序" class="headerlink" title="一维偏序"></a>一维偏序</h2><blockquote>
-<p>给定一个数组，求在数组中比第$i$个元素小的元素个数。</p>
+<h2 id="一维偏序">一维偏序</h2>
+<blockquote>
+<p>给定一个数组，求在数组中比第<span
+class="math inline"><em>i</em></span>个元素小的元素个数。</p>
 </blockquote>
 <p>这个问题非常简单，只需要把数组排序再统计在它之前的元素个数就可以了。</p>
 <p>于是，我们知道了解偏序问题的第一个方法：排序。</p>
-<h2 id="二维偏序"><a href="#二维偏序" class="headerlink" title="二维偏序"></a>二维偏序</h2><blockquote>
-<p>给定两个数组$a$、$b$，求满足$a_i&lt;a_j\land b_i&lt;b_j$的二元组$(i,j)$的数量。</p>
+<h2 id="二维偏序">二维偏序</h2>
+<blockquote>
+<p>给定两个数组<span class="math inline"><em>a</em></span>、<span
+class="math inline"><em>b</em></span>，求满足<span
+class="math inline"><em>a</em><sub><em>i</em></sub> &lt; <em>a</em><sub><em>j</em></sub> ∧ <em>b</em><sub><em>i</em></sub> &lt; <em>b</em><sub><em>j</em></sub></span>的二元组<span
+class="math inline">(<em>i</em>, <em>j</em>)</span>的数量。</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1908">例题一</a><br>这个问题中，有两个条件，显然不好搞，我们要想办法把他消掉一个条件。这就是做偏序问题通用的思想——降维。</p>
-<p>如何消条件呢？还记得刚才的第一个方法吗？我们可以先试试按照 $a$ 排序。</p>
-<p>好的，已经排序完了，由于现在$a$单调递增，可以发现我们现在的问题是在求出满足 $i&lt;j\land b_i&lt;b_j$ 的二元组 $(i,j)$ 的数量。那这不就是个逆序对吗？</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1908">例题一</a>
+这个问题中，有两个条件，显然不好搞，我们要想办法把他消掉一个条件。这就是做偏序问题通用的思想——降维。</p>
+<p>如何消条件呢？还记得刚才的第一个方法吗？我们可以先试试按照 <span
+class="math inline"><em>a</em></span> 排序。</p>
+<p>好的，已经排序完了，由于现在<span
+class="math inline"><em>a</em></span>单调递增，可以发现我们现在的问题是在求出满足
+<span
+class="math inline"><em>i</em> &lt; <em>j</em> ∧ <em>b</em><sub><em>i</em></sub> &lt; <em>b</em><sub><em>j</em></sub></span>
+的二元组 <span class="math inline">(<em>i</em>, <em>j</em>)</span>
+的数量。那这不就是个逆序对吗？</p>
 <p>求逆序对有两种方式，第一种是值域树状数组。于是，我们知道了解偏序问题的第二个方法：值域树状数组。</p>
-<p>显然，这个方式是容易扩展到高维的。只需要多套几层树状数组&#x2F;线段树就可以了。但是二维树状数组的空间复杂度是 $O(n\log^2 n)$ 的，如果题目卡空间就没办法了。</p>
+<p>显然，这个方式是容易扩展到高维的。只需要多套几层树状数组/线段树就可以了。但是二维树状数组的空间复杂度是
+<span
+class="math inline"><em>O</em>(<em>n</em>log<sup>2</sup><em>n</em>)</span>
+的，如果题目卡空间就没办法了。</p>
 <p>第二种方式是归并排序。</p>
-<p>归并排序是怎么做的？先递归处理 $[l,mid]$ 和 $[mid+1,r]$ ，再将排序后的区间合并，合并时直接统计相反的数量就可以了。这么一看似乎不能扩展的样子。</p>
+<p>归并排序是怎么做的？先递归处理 <span
+class="math inline">[<em>l</em>, <em>m</em><em>i</em><em>d</em>]</span>
+和 <span
+class="math inline">[<em>m</em><em>i</em><em>d</em> + 1, <em>r</em>]</span>
+，再将排序后的区间合并，合并时直接统计相反的数量就可以了。这么一看似乎不能扩展的样子。</p>
 <p>但是，还记得刚刚的树状数组吗？我为什么不能在记录答案的时候不直接加，而是丢到树状数组里把第三维也处理掉呢？这个就是三维偏序的事情了。</p>
-<h2 id="三维偏序"><a href="#三维偏序" class="headerlink" title="三维偏序"></a>三维偏序</h2><blockquote>
-<p>给定三个数组 $a$ 、 $b$ 、 $c$ ，求满足 $a_i&lt;a_j \land b_i&lt;b_j \land c_i&lt;c_j$ 的二元组 $(i,j)$ 的数量。</p>
+<h2 id="三维偏序">三维偏序</h2>
+<blockquote>
+<p>给定三个数组 <span class="math inline"><em>a</em></span> 、 <span
+class="math inline"><em>b</em></span> 、 <span
+class="math inline"><em>c</em></span> ，求满足 <span
+class="math inline"><em>a</em><sub><em>i</em></sub> &lt; <em>a</em><sub><em>j</em></sub> ∧ <em>b</em><sub><em>i</em></sub> &lt; <em>b</em><sub><em>j</em></sub> ∧ <em>c</em><sub><em>i</em></sub> &lt; <em>c</em><sub><em>j</em></sub></span>
+的二元组 <span class="math inline">(<em>i</em>, <em>j</em>)</span>
+的数量。</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3810">例题二</a><br><del>显然，我们可以用二维树状数组 MLE 这个问题。</del></p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3810">例题二</a>
+<del>显然，我们可以用二维树状数组 MLE 这个问题。</del></p>
 <p>我们能不能用归并排序解决这个问题呢？</p>
 <p>答案是可以的。</p>
-<p>如何实现呢？我们发现，普通的归并排序之所以只能处理二位偏序，是因为它先对一维排序，解决掉一维，然后递归操作，再将两边合并。而统计答案就是在合并的时候做的。显然，我们已经排序了一维，也就是不能再排序了，只能通过 $a$ 的单调性解决第二维。</p>
+<p>如何实现呢？我们发现，普通的归并排序之所以只能处理二位偏序，是因为它先对一维排序，解决掉一维，然后递归操作，再将两边合并。而统计答案就是在合并的时候做的。显然，我们已经排序了一维，也就是不能再排序了，只能通过
+<span class="math inline"><em>a</em></span> 的单调性解决第二维。</p>
 <p>事已至此，我们发现能用的好像都用了，还有什么能用的吗？</p>
 <p>还记得上一节最后的问题吗？我们可以把它丢到树状数组里处理呀！这样又能消掉一维。</p>
-<p>具体算法流程是这样的：</p>
-<ol>
-<li><p>按照$a$排序；</p>
-</li>
-<li><p>递归分治左右两边；</p>
-</li>
+<p>具体算法流程是这样的： 1. 按照<span
+class="math inline"><em>a</em></span>排序；</p>
+<ol start="2" type="1">
+<li><p>递归分治左右两边；</p></li>
 <li><p>用归并排序的方式合并：</p>
-<p> a. 如果左边的 $b$ 小于右边的 $b$ ，说明可能合法，将 $c$ 插到树状数组里；</p>
-<p> b. 如果左边的 $b$ 大于右边的 $b$ ，说明不合法，只能统计在树状数组中比自己小的$c$的数量。</p>
-</li>
-<li><p>更新 $a_i$ 的答案；</p>
-</li>
-<li><p>清空树状数组。（这里不能直接 memset ，时间会爆炸，只能全部反操作一遍）</p>
-</li>
+<ol type="a">
+<li><p>如果左边的 <span class="math inline"><em>b</em></span> 小于右边的
+<span class="math inline"><em>b</em></span> ，说明可能合法，将 <span
+class="math inline"><em>c</em></span> 插到树状数组里；</p></li>
+<li><p>如果左边的 <span class="math inline"><em>b</em></span> 大于右边的
+<span class="math inline"><em>b</em></span>
+，说明不合法，只能统计在树状数组中比自己小的<span
+class="math inline"><em>c</em></span>的数量。</p></li>
+</ol></li>
+<li><p>更新 <span
+class="math inline"><em>a</em><sub><em>i</em></sub></span>
+的答案；</p></li>
+<li><p>清空树状数组。（这里不能直接 memset
+，时间会爆炸，只能全部反操作一遍）</p></li>
 </ol>
 <p>归并排序都被搞成这个样子了，显然不能叫归并排序了，于是，巨佬CDQ给起了个名字，叫CDQ分治。</p>
 <p>没错，这玩意就是CDQ分治。</p>
-<p>由于分治是 $O(n\log n)$ 的，树状数组是 $O(\log n)$ 的，所以CDQ分治解决三维偏序问题的时间是 $O(n\log^2n)$ 的。</p>
+<p>由于分治是 <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>
+的，树状数组是 <span
+class="math inline"><em>O</em>(log <em>n</em>)</span>
+的，所以CDQ分治解决三维偏序问题的时间是 <span
+class="math inline"><em>O</em>(<em>n</em>log<sup>2</sup><em>n</em>)</span>
+的。</p>
 <p>如果还看不懂，那就上代码吧。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> a,b,c,cnt,ans;</span><br><span class="line">	<span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> Node&amp; x)<span class="type">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a==x.a)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (b==x.b)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">return</span> c&lt;x.c;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> b&lt;x.b;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> a&lt;x.a;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">vector&lt;Node&gt; <span class="title">a</span><span class="params">(<span class="number">1</span>)</span></span>;<span class="comment">//排序并去重后的a</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; c,ans;<span class="comment">//c是树状数组，ans是记录的答案</span></span><br><span class="line"><span class="type">int</span> n,m,k;<span class="comment">//n，k均是题目输入，m是去重后的长度</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">lowbit</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x&amp;-x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(<span class="type">int</span> pos,<span class="type">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (pos&lt;=k)</span><br><span class="line">	&#123;</span><br><span class="line">		c[pos]+=v;</span><br><span class="line">		pos+=<span class="built_in">lowbit</span>(pos);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (pos&gt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		res+=c[pos];</span><br><span class="line">		pos-=<span class="built_in">lowbit</span>(pos);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">CDQ</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (l&gt;=r)<span class="comment">//这里都只剩一个元素了，直接返回</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> mid=l+(r-l)/<span class="number">2</span>;</span><br><span class="line">	<span class="built_in">CDQ</span>(l,mid);<span class="comment">//两边分治处理</span></span><br><span class="line">	<span class="built_in">CDQ</span>(mid<span class="number">+1</span>,r);</span><br><span class="line">	<span class="type">int</span> p1=l,p2=mid<span class="number">+1</span>;</span><br><span class="line">	vector&lt;Node&gt; temp;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=l;i&lt;=r;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (p2&gt;r||(p1&lt;=mid&amp;&amp;a[p1].b&lt;=a[p2].b))<span class="comment">//左边b小于右边b，可以返回</span></span><br><span class="line">		&#123;</span><br><span class="line">			temp.<span class="built_in">push_back</span>(a[p1]);</span><br><span class="line">			<span class="built_in">update</span>(a[p1].c,a[p1].cnt);<span class="comment">//插到树状数组里</span></span><br><span class="line">			p1++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			temp.<span class="built_in">push_back</span>(a[p2]);</span><br><span class="line">			temp.<span class="built_in">back</span>().ans+=<span class="built_in">query</span>(a[p2].c);<span class="comment">//记录结果</span></span><br><span class="line">			p2++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=l;i&lt;=mid;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">update</span>(a[i].c,-a[i].cnt);<span class="comment">//清空树状数组</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=l;i&lt;=r;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		a[i]=temp[i-l];<span class="comment">//将答案传到a中</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;k;</span><br><span class="line">	c.<span class="built_in">resize</span>(k<span class="number">+1</span>);</span><br><span class="line">	ans.<span class="built_in">resize</span>(n<span class="number">+1</span>);</span><br><span class="line">	<span class="function">vector&lt;Node&gt; <span class="title">temp</span><span class="params">(n<span class="number">+1</span>)</span></span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cin&gt;&gt;temp[i].a&gt;&gt;temp[i].b&gt;&gt;temp[i].c;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sort</span>(temp.<span class="built_in">begin</span>()<span class="number">+1</span>,temp.<span class="built_in">end</span>());<span class="comment">//排序</span></span><br><span class="line">	a.<span class="built_in">push_back</span>(temp[<span class="number">1</span>]);</span><br><span class="line">	a[<span class="number">1</span>].cnt=<span class="number">1</span>;</span><br><span class="line">	m=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)<span class="comment">//去重</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[m].a!=temp[i].a||a[m].b!=temp[i].b||a[m].c!=temp[i].c)</span><br><span class="line">		&#123;</span><br><span class="line">			m++;</span><br><span class="line">			a.<span class="built_in">push_back</span>(temp[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		a[m].cnt++;</span><br><span class="line">	&#125;</span><br><span class="line">	m=a.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">	<span class="built_in">CDQ</span>(<span class="number">1</span>,m);<span class="comment">//CDQ分治</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ans[a[i].ans+a[i].cnt]+=a[i].cnt;<span class="comment">//更新结果（因为去重，所以要加偏移量）</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout&lt;&lt;ans[i]&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;<span class="comment">//输出</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="四维偏序"><a href="#四维偏序" class="headerlink" title="四维偏序"></a>四维偏序</h2><blockquote>
-<p>给定四个数组 $a$ 、 $b$ 、 $c$ 、 $d$ ，求满足 $a_i &lt; a_j \land b_i &lt; b_j\land c_i &lt; c_j \land d_i &lt; d_j$ 的二元组 $(i,j)$ 的数量。</p>
+<h2 id="四维偏序">四维偏序</h2>
+<blockquote>
+<p>给定四个数组 <span class="math inline"><em>a</em></span> 、 <span
+class="math inline"><em>b</em></span> 、 <span
+class="math inline"><em>c</em></span> 、 <span
+class="math inline"><em>d</em></span> ，求满足 <span
+class="math inline"><em>a</em><sub><em>i</em></sub> &lt; <em>a</em><sub><em>j</em></sub> ∧ <em>b</em><sub><em>i</em></sub> &lt; <em>b</em><sub><em>j</em></sub> ∧ <em>c</em><sub><em>i</em></sub> &lt; <em>c</em><sub><em>j</em></sub> ∧ <em>d</em><sub><em>i</em></sub> &lt; <em>d</em><sub><em>j</em></sub></span>
+的二元组 <span class="math inline">(<em>i</em>, <em>j</em>)</span>
+的数量。</p>
 </blockquote>
 <p>经过前面的学习，我们大致发现，好像三个方法（排序，树状数组，CDQ分治）都是可以互相嵌套的。</p>
 <p>但是它们三个套在一起也才三维，想要解决四维偏序，必须想出新思路。</p>
@@ -369,9 +426,19 @@
 <p>那问题来了，你能把CDQ分治嵌套吗？</p>
 <p>是可以的。因为每次CDQ分治，分治的对象都是不同的。</p>
 <p>排序之所以不能嵌套，是因为每次操作的对象都是所有数组，你操作第二次的时候就把第一次覆盖掉了。</p>
-<p>而CDQ分治第一次分治 $b$ ，第二次就分治 $c$ ，分治 $c$ 的过程不会改变数组 $b$ ，所以可以嵌套。</p>
-<p>具体流程和三维偏序差不多，只是在分治完$b$之后再递归分治 $c$ ，在分治 $c$ 的时候将 $d$ 丢进树状数组里。</p>
-<p>由三维偏序扩展一下，可以得到CDQ分治解 $k$ 维偏序的时间复杂度是 $O(n \log^{k-1} n)$ ，换句话讲，CDQ顶多解四维偏序，再往上就没暴力跑的快了。</p>
+<p>而CDQ分治第一次分治 <span class="math inline"><em>b</em></span>
+，第二次就分治 <span class="math inline"><em>c</em></span> ，分治 <span
+class="math inline"><em>c</em></span> 的过程不会改变数组 <span
+class="math inline"><em>b</em></span> ，所以可以嵌套。</p>
+<p>具体流程和三维偏序差不多，只是在分治完<span
+class="math inline"><em>b</em></span>之后再递归分治 <span
+class="math inline"><em>c</em></span> ，在分治 <span
+class="math inline"><em>c</em></span> 的时候将 <span
+class="math inline"><em>d</em></span> 丢进树状数组里。</p>
+<p>由三维偏序扩展一下，可以得到CDQ分治解 <span
+class="math inline"><em>k</em></span> 维偏序的时间复杂度是 <span
+class="math inline"><em>O</em>(<em>n</em>log<sup><em>k</em> − 1</sup><em>n</em>)</span>
+，换句话讲，CDQ顶多解四维偏序，再往上就没暴力跑的快了。</p>
 <p>代码的话，不想写了。</p>
 </div>          
           <nav class="post-nav">
