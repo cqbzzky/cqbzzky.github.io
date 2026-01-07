@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/lxgwwenkai/dist/LXGWWenKai-Bold/result.css' />
+  <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/jhlst/dist/%E4%BA%AC%E8%8F%AF%E8%80%81%E5%AE%8B%E4%BD%93v2_002/result.css' />  
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【图论】树上启发式合并（DSU on tree） [ cqbzzky&#39;s blog ]</title>
+
+  <link rel="icon" href="/img/favicon.ico">
+
+
+    <meta name="author" content="cqbzzky">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="cqbzzky&#39;s blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+
+<script defer>
+  document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState == 'hidden') {
+      normal_title = document.title;
+      document.title = '点一下';
+  } else document.title = normal_title;
+});
+
+</script>
+  <body data-theme="light" class="notransition">
+    <script defer>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> 主页</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> 标签</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/categories/"> 类别</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> 档案馆</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> 关于</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  <button id="toTopBtn"><i class="fa-solid fa-hand-point-up " ></i></button>
+<button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
+<div id="overlay" class="overlay">
+  <div class="content">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5"><span class="toc-text">引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E9%A2%98"><span class="toc-text">正题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-text">流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-text">实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li></ol>
+    <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
+  </div>
+</div>
+<div class="wrapper post">
+  <head>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+
+
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E5%9B%BE%E8%AE%BA/" class="tag"># 图论</a><a href="/tags/%E6%A0%91/" class="tag"># 树</a><a href="/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E5%90%88%E5%B9%B6/" class="tag"># 启发式合并</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">【图论】树上启发式合并（DSU on tree）</h1>
+          <div class="post-meta">
+            最后更新: <time>1月 07, 2026</time>
+            作者: <span itemprop="author">
+              <span itemprop="name">cqbzzky</span>
+            </span>
+            字数: <span class="post-count">1.1k</span>
+            预计阅读时间: <span class="post-count">4min</span> 
+          </div>       
+        </header>
+          <div class="page-content"><h2 id="引入">引入</h2>
+<p>想象一个场景。</p>
+<p>有 <span class="math inline"><em>n</em></span>
+个学生分班，一开始每个学生都单独在一个班。但是学校<del>太穷了</del>只有一个老师，于是校长大手一挥，“全都给我到一个班里去！”</p>
+<p>但是一堆人全部混在一起，太乱了，于是校长决定要分批合并，也就是每次合并两个班，合并
+<span class="math inline"><em>n</em> − 1</span> 次。</p>
+<p>由于每个学生都有一个档案，合并班的时候就要重新打印档案。学校<del>太穷了</del>为了让打印的档案尽可能少，规定：在合并时，只重新打印人少的那个班的人的档案。</p>
+<p>由于<del>学校太穷了削减了食堂的经费</del>学生完全不听校长的指挥，一通乱合并。校长急切地想知道他最多需要重新打印多少档案<del>好考虑是否继续削减食堂的经费</del>。</p>
+<p>我们考虑每一个学生。</p>
+<p>对于一个学生，ta只会在遇到比自己大的班的时候重新打印档案。而遇到比自己大的班后，ta所在的班的大小至少会翻倍。也就是说，一个学生最多重新打印
+<span class="math inline">log <em>n</em></span> 次档案。有 <span
+class="math inline"><em>n</em></span> 个学生，所以校长需要打印 <span
+class="math inline"><em>n</em>log <em>n</em></span> 次。</p>
+<h2 id="正题">正题</h2>
+<p>考虑<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U41492">这个问题</a>。</p>
+<p>按常理来想，我们直接 DFS 整棵树，拿一个 cnt
+数组算出每棵子树的答案就好了。</p>
+<p>但是，我们拿的不是普通的东西，是一个长度为 <span
+class="math inline">10<sup>5</sup></span> 的数组。显然，我们无法在 DFS
+时清空它，也无法在递归函数里开这么大的数组。</p>
+<p>于是，我们想想如何复用它。 <img
+src="https://img2024.cnblogs.com/blog/3628372/202512/3628372-20251207193952213-259306587.png"
+alt="graph (2)" /></p>
+<p>看这个图。如果我们不清空，直接用，那么在我们从 <span
+class="math inline">6</span> 返回出来继续递归 <span
+class="math inline">7</span> 时， cnt 数组里就会保留 <span
+class="math inline">6</span> 这个元素，所以是错误的。</p>
+<p>如果我们清空，对于一个有 <span class="math inline"><em>x</em></span>
+个子节点的节点，它需要清空 <span
+class="math inline"><em>x</em> − 1</span>
+次（最后一个子结点就不用清空了）。想想校长是怎么省钱的，就能类比出来，我们让拥有最大子树的那个子节点不清空。</p>
+<p>类似的，我们也能证明这样的时间复杂度是 <span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span> 的。</p>
+<h2 id="流程">流程</h2>
+<ol type="1">
+<li>将所有轻儿子（没有拥有最大的子树）递归下去计算 ans ，每次都清空
+cnt。</li>
+<li>将重儿子（拥有最大的子树）递归下去计算 ans，不清空 cnt。</li>
+<li>将所有轻儿子递归下去计算 cnt。</li>
+<li>如果这个节点本身是轻儿子，清空 cnt。</li>
+</ol>
+<h2 id="实现">实现</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; graph;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; ans,sz,c,h,cnt;</span><br><span class="line"><span class="type">int</span> n,q,sum;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFS1</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> f)</span><span class="comment">//计算重儿子</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	h[u]=<span class="number">-1</span>;</span><br><span class="line">	sz[u]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i:graph[u])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i==f)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">DFS1</span>(i,u);</span><br><span class="line">		sz[u]+=sz[i];</span><br><span class="line">		<span class="keyword">if</span> (h[u]==<span class="number">-1</span>||sz[h[u]]&lt;sz[i])</span><br><span class="line">		&#123;</span><br><span class="line">			h[u]=i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFS2</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> f,<span class="type">int</span> v,<span class="type">int</span> x)</span><span class="comment">//统计cnt和ans</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cnt[c[u]]==<span class="number">0</span>&amp;&amp;v==<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    	sum++;</span><br><span class="line">    &#125;</span><br><span class="line">    cnt[c[u]]+=v;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i:graph[u])</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="keyword">if</span> (i==f||i==x)</span><br><span class="line">    	&#123;</span><br><span class="line">    		<span class="keyword">continue</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="built_in">DFS2</span>(i,u,v,x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFS3</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> f,<span class="type">bool</span> fg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i:graph[u])<span class="comment">//将所有轻儿子（没有拥有最大的子树）递归下去计算 ans ，每次都清空 cnt。</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i==f||i==h[u])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">DFS3</span>(i,u,<span class="literal">false</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (h[u]!=<span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">DFS3</span>(h[u],u,<span class="literal">true</span>);<span class="comment">//将重儿子（拥有最大的子树）递归下去计算 ans，不清空 cnt。</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">DFS2</span>(u,f,<span class="number">1</span>,h[u]);<span class="comment">//将所有轻儿子递归下去计算 cnt。</span></span><br><span class="line">	ans[u]=sum;</span><br><span class="line">	<span class="keyword">if</span> (!fg)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">DFS2</span>(u,f,<span class="number">-1</span>,<span class="number">-1</span>);<span class="comment">//如果这个节点本身是轻儿子，清空 cnt。</span></span><br><span class="line">		sum=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	c.<span class="built_in">resize</span>(n<span class="number">+1</span>);</span><br><span class="line">	h.<span class="built_in">resize</span>(n<span class="number">+1</span>);</span><br><span class="line">	sz.<span class="built_in">resize</span>(n<span class="number">+1</span>);</span><br><span class="line">	ans.<span class="built_in">resize</span>(n<span class="number">+1</span>);</span><br><span class="line">	cnt.<span class="built_in">resize</span>(n<span class="number">+1</span>,<span class="number">0</span>);</span><br><span class="line">	graph.<span class="built_in">resize</span>(n<span class="number">+1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> u,v;</span><br><span class="line">		cin&gt;&gt;u&gt;&gt;v;</span><br><span class="line">		graph[u].<span class="built_in">push_back</span>(v);</span><br><span class="line">		graph[v].<span class="built_in">push_back</span>(u);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cin&gt;&gt;c[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">DFS1</span>(<span class="number">1</span>,<span class="number">-1</span>);</span><br><span class="line">	<span class="built_in">DFS3</span>(<span class="number">1</span>,<span class="number">-1</span>,<span class="literal">true</span>);</span><br><span class="line">	cin&gt;&gt;q;</span><br><span class="line">	<span class="keyword">while</span> (q--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x;</span><br><span class="line">		cin&gt;&gt;x;</span><br><span class="line">		cout&lt;&lt;ans[x]&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="后记">后记</h2>
+<p>我看过很多讲树上启发式合并的博客，都没有看懂<del>我太菜了</del>，最后看了左神的<a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ujo6YCEjt/?spm_id_from=333.1387.search.video_card.click">视频</a>才看懂的，所以写了这篇博客。</p>
+</div>          
+          <nav class="post-nav">
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2026/01/07/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91CDQ%E5%88%86%E6%B2%BB/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">【数据结构】CDQ分治</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © Site by cqbzzky<br>
+        <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> &
+        <a target="_blank" rel="noopener" href="https://github.com/g0dmao/hexo-theme-Klise-enhanced">Klise-enhanced</a>
+        <br>
+        <a target="_blank" rel="noopener" href="https://chinese-font.netlify.app/zh-cn/fonts/jhlst/%E4%BA%AC%E8%8F%AF%E8%80%81%E5%AE%8B%E4%BD%93v2_002">京華老宋体</a> & <a target="_blank" rel="noopener" href="https://chinese-font.netlify.app/zh-cn/">中文网字支持计划</a>
+        <br>
+        始于2025.
+        
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  document.body.classList.add('loaded');
+});
+
+  </script>
+</body>
+</html>
