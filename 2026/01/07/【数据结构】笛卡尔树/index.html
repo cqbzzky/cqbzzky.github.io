@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/lxgwwenkai/dist/LXGWWenKai-Bold/result.css' />
+  <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/jhlst/dist/%E4%BA%AC%E8%8F%AF%E8%80%81%E5%AE%8B%E4%BD%93v2_002/result.css' />  
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【数据结构】笛卡尔树 [ cqbzzky&#39;s blog ]</title>
+
+  <link rel="icon" href="/img/favicon.ico">
+
+
+    <meta name="author" content="cqbzzky">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="cqbzzky&#39;s blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+
+<script defer>
+  document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState == 'hidden') {
+      normal_title = document.title;
+      document.title = '点一下';
+  } else document.title = normal_title;
+});
+
+</script>
+  <body data-theme="light" class="notransition">
+    <script defer>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> 主页</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> 标签</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/categories/"> 类别</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> 档案馆</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> 关于</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  <button id="toTopBtn"><i class="fa-solid fa-hand-point-up " ></i></button>
+<button id="toggleButton"><i class="fa-solid fa-chart-bar " ></i></button>
+<div id="overlay" class="overlay">
+  <div class="content">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E8%B7%AF"><span class="toc-text">算法思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96-bst"><span class="toc-text">优化 BST</span></a></li></ol></li></ol>
+    <button id="closeButton"><i class="fa-solid fa-circle-xmark"></i></button>
+  </div>
+</div>
+<div class="wrapper post">
+  <head>
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+
+
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="tag"># 数据结构</a><a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" class="tag"># 平衡树</a><a href="/tags/%E7%AC%9B%E5%8D%A1%E5%B0%94%E6%A0%91/" class="tag"># 笛卡尔树</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">【数据结构】笛卡尔树</h1>
+          <div class="post-meta">
+            最后更新: <time>1月 07, 2026</time>
+            作者: <span itemprop="author">
+              <span itemprop="name">cqbzzky</span>
+            </span>
+            字数: <span class="post-count">1.4k</span>
+            预计阅读时间: <span class="post-count">5min</span> 
+          </div>       
+        </header>
+          <div class="page-content"><h2 id="算法思路">算法思路</h2>
+<p>笛卡尔树，顾名思义，和笛卡尔没有任何关系。笛卡尔树是用来优化 treap
+的建树的，不支持修改。</p>
+<p>笛卡尔树的每个节点都有一个 key 和一个 value ，其中 key 满足 BST
+性质，value 满足堆性质。</p>
+<p>首先，我们对节点按照 key 升序排序。</p>
+<p>然后，维护一个 value 升序的单调栈。</p>
+<p>对于第 <span class="math inline"><em>i</em></span>
+个节点，它是它在单调栈中压住的那一个节点的右儿子，它的左儿子是最后一个被弹出的节点。</p>
+<p>比如说：</p>
+<p>key: 1 2 3 4 5 6 7 8 value:3 4 5 2 6 1 8 7</p>
+<p>第一步： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">单1</span><br><span class="line">调3</span><br><span class="line">栈</span><br><span class="line">(1,3)是它压着的那个节点的右儿子，没有这个节点，所以将它作为根。</span><br><span class="line">(1,3)的左儿子是最后一个被弹出的节点，没有这个节点。</span><br><span class="line">(1,3)</span><br></pre></td></tr></table></figure> 第二步： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">单1 2</span><br><span class="line">调3 4</span><br><span class="line">栈</span><br><span class="line">(2,4)是它压着的那个节点的右儿子，即(1,3)的右儿子。</span><br><span class="line">(2,4)的左儿子是最后一个被弹出的节点，没有这个节点。</span><br><span class="line">(1,3)</span><br><span class="line">    \</span><br><span class="line">   (2,4)</span><br></pre></td></tr></table></figure> 第三步： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">单1 2 3</span><br><span class="line">调3 4 5</span><br><span class="line">栈</span><br><span class="line">(3,5)是它压着的那个节点的右儿子，即(2,4)的右儿子。</span><br><span class="line">(3,5)的左儿子是最后一个被弹出的节点，没有这个节点。</span><br><span class="line">(1,3)</span><br><span class="line">    \</span><br><span class="line">   (2,4)</span><br><span class="line">      \</span><br><span class="line">     (3,5)</span><br></pre></td></tr></table></figure>
+第四步： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">单4</span><br><span class="line">调2</span><br><span class="line">栈</span><br><span class="line">弹出:(3,5) (2,4) (1,3)</span><br><span class="line">(4,2)是它压着的那个节点的右儿子，没有这个节点，所以将它作为根。</span><br><span class="line">(4,2)的左儿子是最后一个被弹出的节点，即(1,3)。</span><br><span class="line">  (4,2)</span><br><span class="line">   /</span><br><span class="line">(1,3)</span><br><span class="line">    \</span><br><span class="line">   (2,4)</span><br><span class="line">      \</span><br><span class="line">     (3,5)</span><br></pre></td></tr></table></figure> 第五步： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">单4 5</span><br><span class="line">调2 6</span><br><span class="line">栈</span><br><span class="line">(5,6)是它压着的那个节点的右儿子，即(4,5)的右儿子。</span><br><span class="line">(5,6)的左儿子是最后一个被弹出的节点，没有这个节点。</span><br><span class="line">   (4,2)</span><br><span class="line">   /  \</span><br><span class="line">(1,3) (5,6)</span><br><span class="line">    \</span><br><span class="line">   (2,4)</span><br><span class="line">      \</span><br><span class="line">     (3,5)</span><br></pre></td></tr></table></figure> 第六步： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">单6</span><br><span class="line">调1</span><br><span class="line">栈</span><br><span class="line">弹出(5,6) (4,2)</span><br><span class="line">(6,1)是它压着的那个节点的右儿子，没有这个节点，所以将它作为根。</span><br><span class="line">(6,1)的左儿子是最后一个被弹出的节点，即(4,2)。</span><br><span class="line">     (6,1)</span><br><span class="line">      /</span><br><span class="line">   (4,2)</span><br><span class="line">   /  \</span><br><span class="line">(1,3) (5,6)</span><br><span class="line">    \</span><br><span class="line">   (2,4)</span><br><span class="line">      \</span><br><span class="line">     (3,5)</span><br></pre></td></tr></table></figure>
+第七步： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">单6 7</span><br><span class="line">调1 8</span><br><span class="line">栈</span><br><span class="line">(7,8)是它压着的那个节点的右儿子，即(6,1)的右儿子。</span><br><span class="line">(7,8)的左儿子是最后一个被弹出的节点，没有这个节点。</span><br><span class="line">     (6,1)</span><br><span class="line">     /  \</span><br><span class="line">  (4,2) (7,8)</span><br><span class="line">   /  \</span><br><span class="line">(1,3) (5,6)</span><br><span class="line">    \</span><br><span class="line">   (2,4)</span><br><span class="line">      \</span><br><span class="line">     (3,5)</span><br></pre></td></tr></table></figure> 第八步： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">单6 8</span><br><span class="line">调1 7</span><br><span class="line">栈</span><br><span class="line">弹出(7,8)</span><br><span class="line">(8,7)是它压着的那个节点的右儿子，即(6,1)的右儿子。</span><br><span class="line">(8,7)的左儿子是最后一个被弹出的节点，即(7,8)。</span><br><span class="line">       (6,1)</span><br><span class="line">       /   \</span><br><span class="line">   (4,2)   (8,7)</span><br><span class="line">    / \      /</span><br><span class="line">(1,3)(5,6)(7,8)</span><br><span class="line">   \</span><br><span class="line">  (2,4)</span><br><span class="line">     \</span><br><span class="line">    (3,5)</span><br></pre></td></tr></table></figure> ## 算法实现 <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5854">题目链接</a> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&gt; st;</span><br><span class="line">vector&lt;array&lt;<span class="type">int</span>,2&gt;&gt; tr;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	tr.<span class="built_in">resize</span>(n<span class="number">+1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> a;</span><br><span class="line">		cin&gt;&gt;a;</span><br><span class="line">		<span class="type">int</span> x=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (!st.<span class="built_in">empty</span>()&amp;&amp;a&lt;st.<span class="built_in">back</span>().second)</span><br><span class="line">		&#123;</span><br><span class="line">			x=st.<span class="built_in">back</span>().first;</span><br><span class="line">			st.<span class="built_in">pop_back</span>();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (!st.<span class="built_in">empty</span>())</span><br><span class="line">		&#123;</span><br><span class="line">			tr[st.<span class="built_in">back</span>().first][<span class="number">1</span>]=i;</span><br><span class="line">		&#125;</span><br><span class="line">		tr[i][<span class="number">0</span>]=x;</span><br><span class="line">		st.<span class="built_in">push_back</span>(&#123;i,a&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> ans1=<span class="number">0</span>,ans2=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ans1^=<span class="number">1ll</span>*i*(tr[i][<span class="number">0</span>]<span class="number">+1</span>);</span><br><span class="line">		ans2^=<span class="number">1ll</span>*i*(tr[i][<span class="number">1</span>]<span class="number">+1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans1&lt;&lt;<span class="string">&#x27; &#x27;</span>&lt;&lt;ans2;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+注：这份代码为了卡内存，而写的不太好，比较好<del>复制</del>用的在<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/ccidd98y">这里</a>。 ##
+算法应用</p>
+<h3 id="优化-bst">优化 BST</h3>
+<p>这时候有人就会说了：“啊~，优化 BST
+的方法那么多，各种平衡树都是干这个事的，为什么还要搞一个静态的笛卡尔树呢？”</p>
+<p>说对了一半。平衡树是可以优化
+BST，但是它们都是基于旋转/分裂的，一旋转/分裂，它的顺序就变了。虽然还是满足
+BST 性质，但是它已经不是本来按部就班的 BST 的结构了。</p>
+<p>这时候有人就会说了：“啊~，为什么要管那么多呢？满足 BST
+性质就够了呀！”</p>
+<p>那请你用平衡树做一下<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2171">这道题</a>。</p>
+<p>我们想一下如何优化。</p>
+<p>BST
+之所以和其他平衡树的形态不同，是因为平衡树在插入顺序角度来看完全无序，而
+BST 中的父结点一定先于子结点插入。</p>
+<p>既然如此，其实就是 BST 的插入顺序满足堆性质，实际值满足 BST
+性质，就是一个笛卡尔树。 ### <span
+class="math inline">10<sup>7</sup></span> RMQ</p>
+<p>假设有这样一道题。</p>
+<p>有一个长度为 <span class="math inline"><em>n</em></span> 的数组和
+<span class="math inline"><em>q</em></span>
+个查询，每次查询都询问某一区间的最小值（即 RMQ ）。</p>
+<p>输入的数组和查询都由种子生成，输出所有答案的异或和（即不用考虑 IO
+）。</p>
+<p>其中， <span
+class="math inline">1 ≤ <em>n</em>, <em>q</em> ≤ 10<sup>7</sup></span>。</p>
+<p>显然，这次连预处理都不能带 <span class="math inline">log </span> 了，
+st 表不能用。</p>
+<p>考虑如何用笛卡尔树解决。</p>
+<p>如果我们用数组下标当 key ，元素值当 value
+，我们会发现，一个节点的左子树的下标都比自己小，元素值都比自己大，右子树的下标都比自己大，元素值也比自己大。</p>
+<p>于是，我们可以得到，从 <span class="math inline"><em>l</em></span> 到
+<span class="math inline"><em>r</em></span> 的最小值是它们的
+最近公共祖先 的 value 。</p>
+<p>而最近公共祖先可以用 Tarjan 离线 <span
+class="math inline"><em>O</em>(<em>n</em>)</span>
+全部处理，所以总时间复杂度为 <span
+class="math inline"><em>O</em>(<em>n</em>) + <em>O</em>(<em>q</em>) + <em>O</em>(<em>n</em>) = <em>O</em>(<em>n</em> + <em>q</em>)</span>
+。</p>
+</div>          
+          <nav class="post-nav">
+    
+    <a class="post-nav-item post-nav-prev" href="/2026/01/07/%E3%80%90%E5%9B%BE%E8%AE%BA%E3%80%91%E9%9C%8D%E5%B0%94%EF%BC%88Hall%EF%BC%89%E5%AE%9A%E7%90%86/">
+      <div class="nav-arrow">&lt;&nbsp;NEWER</div>
+      <span class="post-title">【图论】霍尔（Hall）定理</span>
+    </a>
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2026/01/07/%E3%80%90%E5%9B%BE%E8%AE%BA%E3%80%91%E6%A0%91%E4%B8%8A%E5%90%AF%E5%8F%91%E5%BC%8F%E5%90%88%E5%B9%B6%EF%BC%88DSU-on-tree%EF%BC%89/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">【图论】树上启发式合并（DSU on tree）</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © Site by cqbzzky<br>
+        <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a> &
+        <a target="_blank" rel="noopener" href="https://github.com/g0dmao/hexo-theme-Klise-enhanced">Klise-enhanced</a>
+        <br>
+        <a target="_blank" rel="noopener" href="https://chinese-font.netlify.app/zh-cn/fonts/jhlst/%E4%BA%AC%E8%8F%AF%E8%80%81%E5%AE%8B%E4%BD%93v2_002">京華老宋体</a> & <a target="_blank" rel="noopener" href="https://chinese-font.netlify.app/zh-cn/">中文网字支持计划</a>
+        <br>
+        始于2025.
+        
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  document.body.classList.add('loaded');
+});
+
+  </script>
+</body>
+</html>
