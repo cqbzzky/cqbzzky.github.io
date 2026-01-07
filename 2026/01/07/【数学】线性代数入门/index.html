@@ -279,7 +279,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+<script>
+window.MathJax = {
+  tex: {
+    packages: {'[+]': ['amsmath', 'amssymb']}, // 矩阵/符号核心包
+    inlineMath: [['$', '$']], // 行内公式：$公式$
+    displayMath: [['$$', '$$']], // 块级公式：$$公式$$
+    processEscapes: true // 支持转义$，避免误识别
+  },
+  chtml: {
+    scale: 0.9, // 行内公式缩小到90%，避免占多行
+    matchFontHeight: false // 禁止公式撑高行高
+  }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
 
 
 
@@ -303,12 +319,12 @@
           <div class="page-content"><h1 id="向量与矩阵基础笔记">向量与矩阵基础笔记</h1>
 <h2 id="向量">向量</h2>
 <h3 id="向量的定义">向量的定义</h3>
-<p>向量有三种定义，不同领域的理解各有侧重： 1.
-<strong>物理角度</strong>：就是坐标系里能随便移动的箭头，核心是表示一个方向，和起点位置没关系。
-2.
-<strong>信息学角度</strong>：把它看成一组数据，这组数据可以对应到坐标系上的一个箭头。
-3.
-<strong>数学角度</strong>：线性代数里主要用这个定义，特指<strong>起点在原点的箭头</strong>，坐标和终点的位置一一对应。</p>
+<p>向量有三种定义，不同领域的理解各有侧重：</p>
+<ol type="1">
+<li><p><strong>物理角度</strong>：就是坐标系里能随便移动的箭头，核心是表示一个方向，和起点位置没关系。</p></li>
+<li><p><strong>信息学角度</strong>：把它看成一组数据，这组数据可以对应到坐标系上的一个箭头。</p></li>
+<li><p><strong>数学角度</strong>：线性代数里主要用这个定义，特指<strong>起点在原点的箭头</strong>，坐标和终点的位置一一对应。</p></li>
+</ol>
 <h3 id="向量加法">向量加法</h3>
 <p>我们可以把向量想象成一个“移动指令”，意思是“沿着这个方向走这么远”，向量加法就是把这些指令按顺序执行。</p>
 <figure>
@@ -317,12 +333,15 @@ alt="向量加法示例" />
 <figcaption aria-hidden="true">向量加法示例</figcaption>
 </figure>
 <p>就比如计算 <span
-class="math inline">$\begin{bmatrix}1\\2\end{bmatrix}+\begin{bmatrix}3\\-1\end{bmatrix}$</span>，可以这么理解：
-1. 先从原点<span
-class="math inline">(0, 0)</span>出发，按第一个向量的指令走到<span
-class="math inline">(1, 2)</span>； 2. 再从<span
-class="math inline">(1, 2)</span>出发，按第二个向量的指令接着走，最后就到了<span
-class="math inline">(1 + 3, 2 + (−1)) = (4, 1)</span>。</p>
+class="math inline">$\begin{bmatrix}1\\2\end{bmatrix}+\begin{bmatrix}3\\-1\end{bmatrix}$</span>，可以这么理解：</p>
+<ol type="1">
+<li><p>先从原点 <span class="math inline">(0, 0)</span>
+出发，按第一个向量的指令走到 <span class="math inline">(1, 2)</span>
+；</p></li>
+<li><p>再从 <span class="math inline">(1, 2)</span>
+出发，按第二个向量的指令接着走，最后就到了 <span
+class="math inline">(1 + 3, 2 + (−1)) = (4, 1)</span> 。</p></li>
+</ol>
 <p>其实本质就是把两个向量的对应分量分别相加，特别好记。</p>
 <h3 id="向量数乘">向量数乘</h3>
 <p>大家可以打开画图工具试试：画一个箭头，来回拖动鼠标调整它的长短，要是把箭头缩到原点另一边，方向还会反过来——这就是向量数乘的直观样子。</p>
@@ -332,59 +351,72 @@ alt="向量数乘示例" />
 <figcaption aria-hidden="true">向量数乘示例</figcaption>
 </figure>
 <p>向量数乘的形式是 <span
-class="math inline"><em>k</em> × <em>u⃗</em></span>，说白了就是把向量<span
-class="math inline"><em>u⃗</em></span>整体放大或缩小<span
-class="math inline"><em>k</em></span>倍：<span
-class="math inline"><em>k</em></span>是正数就和原方向一样，负数就反向，<span
-class="math inline"><em>k</em> = 0</span>就变成零向量了。</p>
+class="math inline"><em>k</em> × <em>u⃗</em></span>，说白了就是把向量
+<span class="math inline"><em>u⃗</em></span> 整体放大或缩小 <span
+class="math inline"><em>k</em></span> 倍： <span
+class="math inline"><em>k</em></span> 是正数就和原方向一样，负数就反向，
+<span class="math inline"><em>k</em> = 0</span> 就变成零向量了。</p>
 <h3 id="张成的空间">张成的空间</h3>
 <p>先看一个式子 <span
-class="math inline"><em>x</em> × <em>u⃗</em> + <em>y</em> × <em>v⃗</em></span>（<span
-class="math inline"><em>x</em></span>和<span
-class="math inline"><em>y</em></span>可以是任意实数），我们想知道这个式子能表示多少种向量，这些向量的集合就叫<span
-class="math inline"><em>u⃗</em></span>和<span
-class="math inline"><em>v⃗</em></span><strong>张成的空间</strong>。</p>
-<p>先拿二维情况举例： - 要是随便找两个不共线的向量<span
-class="math inline"><em>u⃗</em></span>和<span
-class="math inline"><em>v⃗</em></span>，我们甚至可以把它们当成新的坐标系的“坐标轴”，很明显能表示出所有二维向量；
--
-但如果两个向量方向一样（共线），那它们能表示的向量就只能在同一条直线上，空间就退化成了一条线；
-- 更特殊的是，要是两个都是零向量，那它们只能表示原点这一个点。</p>
+class="math inline"><em>x</em> × <em>u⃗</em> + <em>y</em> × <em>v⃗</em></span>
+（ <span class="math inline"><em>x</em></span> 和 <span
+class="math inline"><em>y</em></span>
+可以是任意实数），我们想知道这个式子能表示多少种向量，这些向量的集合就叫
+<span class="math inline"><em>u⃗</em></span> 和 <span
+class="math inline"><em>v⃗</em></span> <strong>张成的空间</strong>。</p>
+<p>先拿二维情况举例：</p>
+<ul>
+<li><p>要是随便找两个不共线的向量 <span
+class="math inline"><em>u⃗</em></span> 和 <span
+class="math inline"><em>v⃗</em></span>
+，我们甚至可以把它们当成新的坐标系的“坐标轴”，很明显能表示出所有二维向量；</p></li>
+<li><p>但如果两个向量方向一样（共线），那它们能表示的向量就只能在同一条直线上，空间就退化成了一条线；</p></li>
+<li><p>更特殊的是，要是两个都是零向量，那它们只能表示原点这一个点。</p></li>
+</ul>
 <p>这里还要提个概念：能张成完整空间（不退化）的向量组叫<strong>线性无关组</strong>，反之就是<strong>线性相关</strong>。而且一个向量组能张成的空间维度，就等于它里面最多有多少个线性无关的向量。</p>
 <h2 id="矩阵">矩阵</h2>
 <h3 id="线性变换">线性变换</h3>
 <p>先说说“变换”是什么意思：其实就是把一个向量变成另一个向量的规则，要是把这个规则用到所有向量上，就是对整个坐标系的变换。</p>
-<p>变换有很多种，比如把坐标系揉成一团也算变换，但线性代数只研究<strong>线性变换</strong>，它有两个很简单的要求：
-1. 变换后原点还在原来的位置，不会跑偏； 2.
-变换后所有直线还是直线，平行的线依然平行——说白了就是只能旋转、翻转或者像压平行四边形那样挤压，不能扭曲。</p>
-<p>那怎么表示一个线性变换呢？我们可以盯着坐标系的“基础箭头”（也就是基向量<span
-class="math inline">$\vec{i}=\begin{bmatrix}1\\0\end{bmatrix}$</span>和<span
-class="math inline">$\vec{j}=\begin{bmatrix}0\\1\end{bmatrix}$</span>）来看：
-比如变换后<span class="math inline"><em>i⃗</em></span>变成了<span
-class="math inline">$\begin{bmatrix}2\\3\end{bmatrix}$</span>，<span
-class="math inline"><em>j⃗</em></span>变成了<span
-class="math inline">$\begin{bmatrix}1\\-1\end{bmatrix}$</span>，那这个变换就可以写成矩阵<span
-class="math inline">$\begin{bmatrix}2 &amp; 1\\3 &amp;
--1\end{bmatrix}$</span>（把基向量变换后的结果按列排就行）。</p>
-<p>想算某个向量变换后的位置也很简单，直接用这个矩阵乘向量就行。比如<span
-class="math inline">$\begin{bmatrix}3\\1\end{bmatrix}$</span>变换后，就是<span
-class="math inline">$\begin{bmatrix}2 &amp; 1\\3 &amp; -1\end{bmatrix}
-\times \begin{bmatrix}3\\1\end{bmatrix}$</span>，拆开算就是把<span
-class="math inline"><em>x</em></span>和<span
-class="math inline"><em>y</em></span>分别按新的基向量缩放再相加。</p>
+<p>变换有很多种，比如把坐标系揉成一团也算变换，但线性代数只研究<strong>线性变换</strong>，它有两个很简单的要求：</p>
+<ol type="1">
+<li><p>变换后原点还在原来的位置，不会跑偏；</p></li>
+<li><p>变换后所有直线还是直线，平行的线依然平行——说白了就是只能旋转、翻转或者像压平行四边形那样挤压，不能扭曲。</p></li>
+</ol>
+<p>那怎么表示一个线性变换呢？我们可以盯着坐标系的“基础箭头”（也就是基向量
+<span
+class="math inline">$\vec{i}=\begin{bmatrix}1\\0\end{bmatrix}$</span> 和
+<span
+class="math inline">$\vec{j}=\begin{bmatrix}0\\1\end{bmatrix}$</span>
+）来看：</p>
+<p>比如变换后 <span class="math inline"><em>i⃗</em></span> 变成了 <span
+class="math inline">$\begin{bmatrix}2\\3\end{bmatrix}$</span> ， <span
+class="math inline"><em>j⃗</em></span> 变成了 <span
+class="math inline">$\begin{bmatrix}1\\-1\end{bmatrix}$</span>
+，那这个变换就可以写成矩阵 <span class="math inline">$\begin{bmatrix}2
+&amp; 1\\3 &amp; -1\end{bmatrix}$</span>
+（把基向量变换后的结果按列排就行）。</p>
+<p>想算某个向量变换后的位置也很简单，直接用这个矩阵乘向量就行。比如
+<span class="math inline">$\begin{bmatrix}3\\1\end{bmatrix}$</span>
+变换后，就是 <span class="math inline">$\begin{bmatrix}2 &amp; 1\\3
+&amp; -1\end{bmatrix} \times \begin{bmatrix}3\\1\end{bmatrix}$</span>
+，拆开算就是把 <span class="math inline"><em>x</em></span> 和 <span
+class="math inline"><em>y</em></span> 分别按新的基向量缩放再相加。</p>
 <p>要是想把两个线性变换合起来（先做第一个再做第二个），其实就是把两个变换对应的矩阵相乘，注意顺序不能搞反哦！</p>
 <h3 id="行列式">行列式</h3>
 <p>行列式其实就是衡量线性变换“缩放能力”的数：在坐标系里圈一块地方，经过变换后它的面积是原来的多少倍，这个倍数就是行列式的值。</p>
-<p>还有两个关键点： 1.
-行列式有正负——要是变换后坐标系“翻了个面”（比如顺时针变逆时针），行列式就是负数；
-2.
-要是行列式等于0，说明变换把空间压成了更低的维度（比如二维变一维），这时候矩阵里的向量肯定是线性相关的。</p>
-<p>行列式的计算公式是<span class="math inline">$\det{A} = \sum_{k=1}^n
-(-1)^{i+k}A_{i,k}M_{i,k}$</span>（<span
-class="math inline"><em>M</em></span>是去掉第<span
-class="math inline"><em>i</em></span>行第<span
-class="math inline"><em>k</em></span>列后的小矩阵的行列式），虽然看起来复杂，但二阶矩阵直接算<span
-class="math inline"><em>a</em><em>d</em> − <em>b</em><em>c</em></span>就行，很好记。</p>
+<p>还有两个关键点：</p>
+<ol type="1">
+<li><p>行列式有正负——要是变换后坐标系“翻了个面”（比如顺时针变逆时针），行列式就是负数；</p></li>
+<li><p>要是行列式等于0，说明变换把空间压成了更低的维度（比如二维变一维），这时候矩阵里的向量肯定是线性相关的。</p></li>
+</ol>
+<p>行列式的计算公式是 <span class="math inline">$\det{A} = \sum_{k=1}^n
+(-1)^{i+k}A_{i,k}M_{i,k}$</span> （ <span
+class="math inline"><em>M</em></span> 是去掉第 <span
+class="math inline"><em>i</em></span> 行第 <span
+class="math inline"><em>k</em></span>
+列后的小矩阵的行列式），虽然看起来复杂，但二阶矩阵直接算 <span
+class="math inline"><em>a</em><em>d</em> − <em>b</em><em>c</em></span>
+就行，很好记。</p>
 <h3 id="线性方程组">线性方程组</h3>
 <p>学过高斯消元的都知道，线性方程组能写成矩阵乘法的样子： <span
 class="math display">$$
@@ -407,13 +439,17 @@ b_2\\
 b_n
 \end{bmatrix}
 $$</span></p>
-<p>从几何角度看，解这个方程就是<strong>找一个向量<span
-class="math inline"><em>x⃗</em></span>，让它经过系数矩阵对应的线性变换后，刚好变成右边的<span
-class="math inline"><em>b⃗</em></span></strong>。</p>
-<p>这里要提“秩”的概念，它就是变换后空间的维度： -
-要是变换后维度和原来一样（满秩），那方程要么只有一个解，要么无解； -
-要是不满秩（空间被压缩了），只要<span
-class="math inline"><em>b⃗</em></span>在压缩后的空间里，就有无数个解，否则就无解。</p>
+<p>从几何角度看，解这个方程就是<strong>找一个向量 <span
+class="math inline"><em>x⃗</em></span>
+，让它经过系数矩阵对应的线性变换后，刚好变成右边的 <span
+class="math inline"><em>b⃗</em></span> </strong>。</p>
+<p>这里要提“秩”的概念，它就是变换后空间的维度：</p>
+<ul>
+<li><p>要是变换后维度和原来一样（满秩），那方程要么只有一个解，要么无解；</p></li>
+<li><p>要是不满秩（空间被压缩了），只要 <span
+class="math inline"><em>b⃗</em></span>
+在压缩后的空间里，就有无数个解，否则就无解。</p></li>
+</ul>
 <h2 id="又是向量">又是向量</h2>
 <h3 id="点积">点积</h3>
 <p>在讲这个运算之前，我们先把这个运算的形式写出来。 <span
@@ -427,12 +463,13 @@ $$</span>
 alt="点积投影示例1" />
 <figcaption aria-hidden="true">点积投影示例1</figcaption>
 </figure>
-<p>如图，将<span class="math inline"><em>u⃗</em></span>向<span
-class="math inline"><em>v⃗</em></span>做投影，也就是点<span
-class="math inline"><em>u</em></span>向<span
-class="math inline"><em>A</em><em>C</em></span>做垂线，<span
-class="math inline"><em>u⃗</em> ⋅ <em>v⃗</em></span>就是<span
-class="math inline"><em>A</em><em>D</em> × <em>A</em><em>C</em></span>。</p>
+<p>如图，将 <span class="math inline"><em>u⃗</em></span> 向 <span
+class="math inline"><em>v⃗</em></span> 做投影，也就是点 <span
+class="math inline"><em>u</em></span> 向 <span
+class="math inline"><em>A</em><em>C</em></span> 做垂线， <span
+class="math inline"><em>u⃗</em> ⋅ <em>v⃗</em></span> 就是 <span
+class="math inline"><em>A</em><em>D</em> × <em>A</em><em>C</em></span>
+。</p>
 <p>说到这里，你们肯定认为这是一个完全不对称的运算，但是，其实点积满足交换律。</p>
 <p>先不要惊讶，我们来看一张图。</p>
 <figure>
@@ -442,55 +479,64 @@ alt="点积交换律直观示例" />
 </figure>
 <p>显然，在这种情况下，<span
 class="math inline"><em>u⃗</em> ⋅ <em>v⃗</em></span> 是满足交换律的。</p>
-<p>如果我们把<span
-class="math inline"><em>v⃗</em></span>延长一倍，得到<span
-class="math inline">$\vec{v'}$</span>。现在我们来算<span
-class="math inline">$\vec{v'} \cdot \vec{u}$</span>。</p>
+<p>如果我们把 <span class="math inline"><em>v⃗</em></span> 延长一倍，得到
+<span class="math inline">$\vec{v'}$</span> 。现在我们来算 <span
+class="math inline">$\vec{v'} \cdot \vec{u}$</span> 。</p>
 <figure>
 <img src="https://cdn.luogu.com.cn/upload/image_hosting/0csejzrh.png"
 alt="点积数乘交换律验证" />
 <figcaption aria-hidden="true">点积数乘交换律验证</figcaption>
 </figure>
-<p>如图，当我们计算<span
-class="math inline"><em>A</em><em>D</em> × <em>A</em><em>F</em></span>时，实际上是在算<span
-class="math inline"><em>A</em><em>D</em> × 2<em>A</em><em>C</em></span>；当我们计算<span
-class="math inline"><em>A</em><em>G</em> × <em>A</em><em>B</em></span>时，由于<span
-class="math inline">△<em>A</em><em>C</em><em>E</em> ∼ △<em>A</em><em>F</em><em>G</em></span>，可推知实际是在算<span
-class="math inline">2<em>A</em><em>E</em> × <em>A</em><em>B</em></span>。</p>
-<p>显然，<span
-class="math inline"><em>A</em><em>D</em> × 2<em>A</em><em>C</em> = 2<em>A</em><em>E</em> × <em>A</em><em>B</em></span>，故交换律成立。</p>
+<p>如图，当我们计算 <span
+class="math inline"><em>A</em><em>D</em> × <em>A</em><em>F</em></span>
+时，实际上是在算 <span
+class="math inline"><em>A</em><em>D</em> × 2<em>A</em><em>C</em></span>
+；当我们计算 <span
+class="math inline"><em>A</em><em>G</em> × <em>A</em><em>B</em></span>
+时，由于 <span
+class="math inline">△<em>A</em><em>C</em><em>E</em> ∼ △<em>A</em><em>F</em><em>G</em></span>
+，可推知实际是在算 <span
+class="math inline">2<em>A</em><em>E</em> × <em>A</em><em>B</em></span>
+。</p>
+<p>显然， <span
+class="math inline"><em>A</em><em>D</em> × 2<em>A</em><em>C</em> = 2<em>A</em><em>E</em> × <em>A</em><em>B</em></span>
+，故交换律成立。</p>
 <p>显然，我们可以用这种方法构造任何一对向量，所以点积满足交换律。</p>
 <p>现在又有人说了：“你这个点积计算公式和你开头提到的没有任何关系呀！”</p>
 <p>我们来解释一下。</p>
 <p>首先，我们来讲一下从多维空间到一维空间的线性变换。</p>
 <p>普通的线性变换都可以用方阵来表示。但是，从多维到一维的线性变换，它的每一列只剩一个元素了。</p>
-<p>拿二维举例，我们就得到了一个<span
-class="math inline">1 × 2</span>的矩阵。</p>
-<p>众所周知，二维向量可以表示为<span
-class="math inline">2 × 1</span>的矩阵。于是，我们将一个二维向量做如上所述的线性变换就可以表示为一个<span
-class="math inline">1 × 2</span>矩阵乘以一个<span
-class="math inline">2 × 1</span>矩阵。如果你把它展开，就会发现，它其实就是开头所说的那个公式。</p>
-<p>我们现在把刚才的变换得到的一维空间放在原本的二维空间上，其中原本的二维空间的基向量分别为<span
-class="math inline"><em>i⃗</em></span>、<span
-class="math inline"><em>j⃗</em></span>，一维空间的基向量为<span
-class="math inline"><em>u⃗</em></span>。 <img
-src="https://cdn.luogu.com.cn/upload/image_hosting/ciw3z948.png"
-alt="点积与线性变换关联示例" /> 由于<span
-class="math inline"><em>u⃗</em></span>和<span
-class="math inline"><em>i⃗</em></span>是关于直线<span
-class="math inline"><em>A</em><em>J</em></span>对称的，<span
-class="math inline"><em>A</em><em>G</em></span>的长度是<span
-class="math inline"><em>I</em></span>的横坐标，也就是<span
-class="math inline"><em>u</em></span>的横坐标。</p>
-<p>同理，<span
-class="math inline"><em>A</em><em>D</em></span>的长度是<span
-class="math inline"><em>H</em></span>的纵坐标，也就是<span
+<p>拿二维举例，我们就得到了一个 <span class="math inline">1 × 2</span>
+的矩阵。</p>
+<p>众所周知，二维向量可以表示为 <span class="math inline">2 × 1</span>
+的矩阵。于是，我们将一个二维向量做如上所述的线性变换就可以表示为一个
+<span class="math inline">1 × 2</span> 矩阵乘以一个 <span
+class="math inline">2 × 1</span>
+矩阵。如果你把它展开，就会发现，它其实就是开头所说的那个公式。</p>
+<p>我们现在把刚才的变换得到的一维空间放在原本的二维空间上，其中原本的二维空间的基向量分别为
+<span class="math inline"><em>i⃗</em></span> 、 <span
+class="math inline"><em>j⃗</em></span> ，一维空间的基向量为 <span
+class="math inline"><em>u⃗</em></span> 。</p>
+<figure>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/ciw3z948.png"
+alt="点积与线性变换关联示例" />
+<figcaption aria-hidden="true">点积与线性变换关联示例</figcaption>
+</figure>
+<p>由于 <span class="math inline"><em>u⃗</em></span> 和 <span
+class="math inline"><em>i⃗</em></span> 是关于直线 <span
+class="math inline"><em>A</em><em>J</em></span> 对称的， <span
+class="math inline"><em>A</em><em>G</em></span> 的长度是 <span
+class="math inline"><em>I</em></span> 的横坐标，也就是 <span
+class="math inline"><em>u</em></span> 的横坐标。</p>
+<p>同理， <span class="math inline"><em>A</em><em>D</em></span> 的长度是
+<span class="math inline"><em>H</em></span> 的纵坐标，也就是<span
 class="math inline"><em>u</em></span>的纵坐标。</p>
-<p>于是，我们把这个线性变换写成<span
+<p>于是，我们把这个线性变换写成 <span
 class="math inline">$\begin{bmatrix}u_x &amp;
-u_y\end{bmatrix}$</span>（注意是横着写），如果我们要算任意一个向量在线性变换之后的结果，既可以直接按照上图的投影来算，也可以乘以<span
-class="math inline">$\begin{bmatrix}u_x &amp;
-u_y\end{bmatrix}$</span>，也就是按照开头的公式来算，于是这两个东西的等价性也就证明完毕了。</p>
+u_y\end{bmatrix}$</span>（注意是横着写），如果我们要算任意一个向量在线性变换之后的结果，既可以直接按照上图的投影来算，也可以乘以
+<span class="math inline">$\begin{bmatrix}u_x &amp;
+u_y\end{bmatrix}$</span>
+，也就是按照开头的公式来算，于是这两个东西的等价性也就证明完毕了。</p>
 </div>          
           <nav class="post-nav">
     
